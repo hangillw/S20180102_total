@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GuideDto">
+  <!-- Use type aliases to avoid typing the full classname every time. -->
+  <resultMap id="GuideResult" type="GuideDto">
+	    <result property="memberId" column="memberId"/>
+	    <result property="gno" column="gno"/>
+	    <result property="gimg" column="gimg"/>
+	    <result property="gtel" column="gtel"/>
+	    <result property="kakaoId" column="kakaoId"/>
+	    <result property="ginfo" column="ginfo"/>
+	    <result property="gpage" column="gpage"/>
+	    <result property="gcredate" column="gcredate"/>
+	    <result property="gaccount" column="gaccount"/>
+	    <result property="ggrade" column="ggrade"/>
+	    <result property="totalCost" column="totalCost"/>
+  </resultMap>
+  
+
+  
+	<select id="totalGuide" resultType="int">
+		select count(*) from guide
+	</select>
+ 
+   <select id="g_list" parameterType="PagingDto" resultMap="GuideResult">
+	   select * from
+		(select rownum rn, a.* from (select * from guide
+		order by gNo) a) where
+		rn between #{start} and #{end}
+	</select>
+	
+	
+	<select id="g_info" parameterType="java.lang.String" resultMap="GuideResult">
+		select * from guide where memberId='${value}'
+	</select>
+	
+<!-- 	<select id="g_delete" parameterType="java.lang.String" >
+		 delete from guide where memberId='${value}'
+	</select>
+ -->	
+ 
+ 	<update id="upGuide" parameterType="GuideDto">
+ 		update guide 
+ 		  set     gImg = '${gimg}',
+ 		          gTel = '${gtel}',
+ 		       kakaoId = '${kakaoId}',
+ 		         gInfo = '${ginfo}',
+ 		         gPage = '${gpage}',
+ 		      gAccount = '${gaccount}'
+ 	    where memberId = '${memberId}'
+ 	</update>
+ 	
+ 	<select id="selgNoToGuide" parameterType="int" resultType="GuideDto">
+		select * from guide where gNo = #{gno}
+	</select>
+	
+	<update id="upCostGuide" parameterType="GuideDto">
+		update guide set totalCost = #{totalCost} where gNo = #{gno}
+	</update>
+</mapper>

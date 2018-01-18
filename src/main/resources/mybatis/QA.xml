@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qaDto">
+	<!-- Use type aliases to avoid typing the full classname every time. -->
+	<resultMap id="qaResult" type="qaDto">
+		<result property="memberId" column="memberId" />
+		<result property="gServNo" column="gservNo" />
+		<result property="qaNumber" column="qaNumber" />
+		<result property="qaReceiver" column="qaReceiver" />
+		<result property="qaTitle" column="qaTitle" />
+		<result property="qaContent" column="qaContent" />
+		<result property="qaCredate" column="qaCredate" />
+		<result property="qaStep" column="qaStep" />
+		<result property="qaComplete" column="qaComplete" />
+		<result property="gservTitle" column="gservTitle" />
+	</resultMap>
+
+	<!-- qastep = 0인, 그 문의사항 자체의 개수만 count -->
+	<select id="selTotalQA" parameterType="PagingDto" resultType="int">
+		select count(q.gservNo) from qa q, gService g
+		where q.gservNo = g.gservNo
+		and q.qaStep = 0
+		<if test="memberId != null">and q.memberId=#{memberId}</if>
+		<if test="qaReceiver != null">and q.qaReceiver = #{qaReceiver}</if>
+		<if test="reply_yn != null">and q.qacomplete=#{reply_yn}</if>
+		<if test="gservTitle != null">and g.gServTitle=#{gservTitle}</if>
+	</select>
+
+	<!-- 필터를 적용하여, 회원이 작성한 문의사항을 보여준다 -->
+	<select id="selQAList" parameterType="PagingDto" resultMap="qaResult">
+		<!-- 필터링 적용 없읍 -->
+		select * from (select rownum rn, a.* from (select Q.*, G.GSERVTITLE
+		from qa Q, GSERVICE G
+		WHERE G.GSERVNO = Q.GSERVNO
+		<!-- and (Q.memberId = #{memberId} 
+		or Q.qareceiver = #{memberId}) -->
+		and Q.memberId = #{memberId}
+		and Q.qaStep = 0 
+		<if test="reply_yn != null">and qacomplete = #{reply_yn}</if>
+		<!-- 답변자 혹은 문의자의 아이디 == memberID -->
+		order by qaNumber,qaStep) a) <!-- 어차피 작성순서대로 qanumber매겨지는거라서.. -->
+		where rn between #{start} and #{end}
+	</select>
+	
+	<!-- (회원용)이에 대한 답변 -->
+	<select id="selQAList_rpy" parameterType="PagingDto" resultMap="qaResult">
+		select Q.*, G.GSERVTITLE
+		from qa Q, GSERVICE G
+		WHERE G.GSERVNO = Q.GSERVNO
+		and (Q.memberId = #{memberId} 
+		or Q.qareceiver = #{memberId}) 
+		and Q.qaStep > 0 
+		<if test="reply_yn != null">and qacomplete = #{reply_yn}</if>
+		<!-- 답변자 혹은 문의자의 아이디 == memberID -->
+		order by qaNumber,qaStep
+	</select>
+	
+	
+	
+	<!-- 필터를 적용하여, 가이드가 열람할 문의사항을 보여준다 -->
+	<select id="selQAList2" parameterType="PagingDto" resultMap="qaResult">
+		<!-- 필터링 적용 없읍 -->
+		select * from (select rownum rn, a.* from (select Q.*, G.GSERVTITLE
+		from qa Q, GSERVICE G
+		WHERE G.GSERVNO = Q.GSERVNO
+		and Q.qaReceiver = #{qaReceiver}
+		and Q.qaStep = 0
+		<if test="reply_yn != null">and Q.qacomplete = #{reply_yn}</if>
+		<if test="gservTitle != null">and G.gServTitle = #{gservTitle}</if> 
+		order by qaNumber,qaStep) a)
+		where rn between #{start} and #{end}
+	</select>
+	
+	<!-- (가이드용)이에 대한 답변 -->
+	<select id="selQAList2_rpy" parameterType="PagingDto" resultMap="qaResult">
+		select Q.*, G.GSERVTITLE
+		from qa Q, GSERVICE G
+		WHERE G.GSERVNO = Q.GSERVNO
+		and (Q.memberId = #{qaReceiver} 
+		or Q.qaReceiver = #{qaReceiver})
+		and Q.qaStep > 0
+		<if test="reply_yn != null">and Q.qacomplete = #{reply_yn}</if>
+		<if test="gservTitle != null">and G.gServTitle = #{gservTitle}</if> 
+		order by qaNumber,qaStep
+	</select>
+	
+	<!-- (가이드) 답변 입력 -->
+	<insert id="insertQA_guide" parameterType="qaDto">
+		insert into qa
+		values(#{memberId},#{gservNo},#{qaNumber},#{qaReceiver},#{qaTitle},#{qaContent},SYSDATE,(select max(qaStep)+1 from qa where qanumber = #{qaNumber}),'n')
+	</insert>
+	
+	<!-- 회원 창에서.. 회원이 특정 문의사항의 제목을 클릭했을 경우 그 내용과 답변 확인 이거 ajax 안쓰게 되면서 아마 필요없어진듯-->
+	<!-- <select id="selqaCkList" parameterType="int" resultMap="qaResult">
+		select * from qa 
+		where qaNumber = #{qaNumber}
+		order by qaStep
+	</select>  -->
+	
+	
+	<!-- 매니저 qa의 total 구하기 -->
+	<select id="selTotalQA_manager" parameterType="PagingDto"
+		resultType="int">
+	select count(*) from qa
+	where qaStep = 0
+	and (memberId = (select memberId
+	from member where authority = 0)
+	or qaReceiver = (select memberId from
+	member where authority = 0))
+	<if test="reply_yn != null">and Q.qacomplete = #{reply_yn}</if>
+	</select>
+	
+	<!-- manager QnA List -->
+	<select id="selQAList3" parameterType="PagingDto" resultMap="qaResult">
+		select * from (select rownum rn, a.* from (select * from qa
+	where qaStep = 0
+	and (memberId = (select memberId from member where authority = 0)
+	or qaReceiver = (select memberId from member where authority = 0))
+	<if test="reply_yn != null">and Q.qacomplete = #{reply_yn}</if>) a) <!-- 어차피 작성순서대로 qanumber매겨지는거라서.. -->
+		where rn between #{start} and #{end}
+	</select>
+</mapper>
