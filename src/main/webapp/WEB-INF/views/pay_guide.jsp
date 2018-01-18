@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- //<%@ include file="setting.jsp" %> --%>
 <%@ include file="header_detail.jsp" %>
 <%
 	String context = request.getContextPath();
@@ -19,20 +18,20 @@
 <script type="text/javascript">
 		$(function(){
 			$("button").click(function(){
-				var gNo = ${gno};
-				var gServNo = $('#gServNo').val() == "" ? null : $('#gServNo').val();
+				var gno = ${gno};
+				var gservNo = $('#gservNo').val() == "" ? null : $('#gservNo').val();
 				var startSearch = $('#start').val() == "" ? null : $('#start').val();
 				var endSearch = $('#end').val() == "" ? null : $('#end').val();
-				console.log(gNo);
-				console.log(gServNo);
+				console.log(gno);
+				console.log(gservNo);
 				console.log(startSearch);
 				console.log(endSearch);
-				if(startSearch != null && endSearch != null && gServNo != null){
+				if(startSearch != null && endSearch != null && gservNo != null){
 					console.log("all");
 					$.ajax({
 			            type : 'POST',
 			            url  : '<%=context%>/rest/downExcel.do',
-			            data : { gNo : gNo, gServNo : gServNo, startSearch : startSearch, endSearch : endSearch },
+			            data : { gno : gno, gservNo : gservNo, startSearch : startSearch, endSearch : endSearch },
 						success : function(data) {
 							console.log("sucess");
 						}
@@ -42,17 +41,17 @@
 					$.ajax({
 			            type : 'POST',
 			            url  : '<%=context%>/rest/downExcel.do',
-			            data : { gNo : gNo, startSearch : startSearch, endSearch : endSearch },
+			            data : { gno : gno, startSearch : startSearch, endSearch : endSearch },
 						success : function(data) {
 							console.log("sucess");
 						}
 					});
-				}else if(gServNo != null){
-					console.log("gServNo");
+				}else if(gservNo != null){
+					console.log("gservNo");
 					$.ajax({
 			            type : 'POST',
 			            url  : '<%=context%>/rest/downExcel.do',
-			            data : { gNo : gNo, gServNo : gServNo },
+			            data : { gno : gno, gservNo : gservNo },
 						success : function(data) {
 							console.log("sucess");
 						}
@@ -62,7 +61,7 @@
 					$.ajax({
 			            type : 'POST',
 			            url  : '<%=context%>/rest/downExcel.do',
-			            data : { gNo : gNo },
+			            data : { gno : gno },
 						success : function(data) {
 							console.log("sucess");
 						}
@@ -70,18 +69,25 @@
 				}
 			});
 		});
+		function chk() {
+			if($('#gservNo').val()==null || $('#gservNo').val()==""){
+				$('#gservNo').val("0");
+				return true;
+			}
+			return true;
+		}
 </script>
 </head>
 <body>
 <jsp:include page="guideBar.jsp"></jsp:include>
 <section class="body">
  <h1>매출통계보기 및 조건별 매출검색</h1>
- <form action="pay_guide.do">
- <input type="hidden" name="gno" value="${gno }">
- 서비스 번호 검색 <input type="search" id="gServNo" name="gservNo">
+ <form action="pay_guide.do" onsubmit="chk()">
+ <%-- <input type="hidden" name="gno" value="${gno }"> --%>
+ 서비스 번호 검색 <input type="search" id="gservNo" name="gservNo">
  </form>
  <form action="pay_guide.do">
- <input type="hidden" name="gno" value="${gno }">
+ <%-- <input type="hidden" name="gno" value="${gno }"> --%>
  기간별 검색  시작일 : <input type="date" id="start" name="startSearch" required="required"> ~ 종료일 : <input type="date" id="end" name="endSearch" required="required">
 	<input type="submit" value="검색">
 </form>

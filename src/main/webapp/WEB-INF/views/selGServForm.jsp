@@ -42,7 +42,7 @@
 	    }
 	}
 	$(function(){
-		var days = "<c:out value="${gsDto.gServDay}"/>";
+		var days = "<c:out value="${gsDto.gservDay}"/>";
 		var dayArray = days.split('');
 		for(i = 0; i <= dayArray.length; i++){
 			var x = dayArray[i];
@@ -218,13 +218,13 @@ function delItem(){
 <script type="text/javascript">
 			var container = document.getElementById('map');
 			var options = {
-				center: new daum.maps.LatLng(${gs.gServGps}),
+				center: new daum.maps.LatLng(${gs.gservGps}),
 				level: 3
 			};
 	
 			var map = new daum.maps.Map(container, options);
 			// 마커가 표시될 위치입니다 
-			var markerPosition  = new daum.maps.LatLng(${gs.gServGps}); 
+			var markerPosition  = new daum.maps.LatLng(${gs.gservGps}); 
 			// 마커를 생성합니다
 			var marker = new daum.maps.Marker({
 			    position: markerPosition

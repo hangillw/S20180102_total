@@ -25,4 +25,7 @@ public interface MemberDao {
 	int changePwConfirm(MemberDto memberDto);   //비번변경확인
 	int inMember(MemberDto memberDto);          // 회원가입
 	
+	
+	/* 태욱 */
+	int selgNo(String memberId);                 // 아이디로 가이드번호를 검색
 }

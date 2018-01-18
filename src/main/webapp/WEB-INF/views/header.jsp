@@ -116,7 +116,11 @@ form {
 	width: 150px;
 	height: 30px;
 }
-
+#user {
+	width:50px;
+	height:45px;
+	margin-top:2.5px;
+}
 #loginLogo {
 	width: 40px;
 	height: 40px;
@@ -243,10 +247,7 @@ form {
 						<c:if test="${loginChk == null || loginChk == 0}">	
 							<!-- <a href="logInForm.do">로그인</a>	 -->		
 							<a data-toggle="modal" data-target="#plogin" role="button"> 
-								<img src="login.png"	alt="로그인">		
-								<!-- <img class="icon-50 user" src="items/user.png" alt="로그인 logo"
-									 onmouseover="this.src='items/user_hover.png'"
-							 	 	 onmouseout="this.src='items/user.png'"> -->
+								<img id="user" src="${pageContext.request.contextPath}/items/user.png">
 							</a>
 						</c:if>							
 						<!-- 로그인 상태 -->

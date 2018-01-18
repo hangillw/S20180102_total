@@ -32,4 +32,6 @@ public interface MemberService {
 	void findpw2(String memberId);                 //임시비번 이멜발송
 	int inMember(MemberDto mbDto);                 // 회원가입
 	
+	//태욱 ----------------------------------------------------------//
+	int selgNo(String memberId);                   // 아이디로 가이드번호를 검색
 }

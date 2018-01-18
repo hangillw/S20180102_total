@@ -134,7 +134,7 @@
 	   	select g.*, r.sum rememsize, r.tourdate tourdate
 		from gservice g, (select gservNo, tourdate, sum(rememsize) sum from reservation where gno = #{gno} and SUCCESS_YN = 'y' and sysdate &gt; TOURDATE  group by gservNo, tourdate) r
 		where r.gservno = g.gservNo <if test="startSearch != null">and tourdate &gt;= #{startSearch}</if>
-		<if test="endSearch != null">and tourdate &lt;= #{endSearch}</if> <if test="gservNo != null and gservNo != 0">and g.gservNo = #{gservNo}</if>
+		<if test="endSearch != null">and tourdate &lt;= #{endSearch}</if> <if test="gservNo != 0">and g.gservNo = #{gservNo}</if>
 		order by r.tourdate desc
    </select> 
    

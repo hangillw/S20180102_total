@@ -18,6 +18,7 @@ import oracle.java.s20180102.service.ReservService;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 //import org.rosuda.JRI.REXP;
 //import org.rosuda.JRI.Rengine;
@@ -43,8 +44,9 @@ public class GuideController {
 	태욱
 ------------------------------------------------------------------------------------------*/
 	@RequestMapping(value="service_guide")
-	public String service_guide(String gno, GServDto gsDto, String currentPage, Model model) {
+	public String service_guide(HttpSession session, GServDto gsDto, String currentPage, Model model) {
 		int total = 0;
+		String gno = (String)session.getAttribute("gno");
 		if(gno!=null) {
 			total = gss.total(Integer.parseInt(gno)); 
 		}else {
@@ -63,8 +65,8 @@ public class GuideController {
 		return "service_guide";
 	}
 	
-	@RequestMapping(value="selgservForm")
-	public String selgservForm(String gservNo, Model model) {
+	@RequestMapping(value="selGServForm")
+	public String selGservForm(String gservNo, Model model) {
 		System.out.println("gservNo = " + gservNo);
 		GServDto gsDto = gss.oneGServ(Integer.parseInt(gservNo));
 		//System.out.println("gsDto = " + gsDto);
@@ -73,11 +75,12 @@ public class GuideController {
 		System.out.println("수정 페이지로 넘어갈때 gno = "+gsDto.getGno());
 		model.addAttribute("gsDto", gsDto);
 		model.addAttribute("cDtoList", cDtoList);
-		return "selgservForm";
+		return "selGServForm";
 	}
 	
-	@RequestMapping(value="ingservForm")
-	public String ingservForm(String gno, Model model) {
+	@RequestMapping(value="inGServForm")
+	public String inGservForm(HttpSession session, Model model) {
+		String gno = (String)session.getAttribute("gno");
 		System.out.println("gno = " + gno);
 		GServDto gsDto = new GServDto();
 		int gservNo = gss.selGServNo(Integer.parseInt(gno));
@@ -85,14 +88,12 @@ public class GuideController {
 		gsDto.setGservNo(gservNo);
 		System.out.println("등록 페이지로 넘어갈때 gno = "+ gsDto.getGno());
 		model.addAttribute("gsDto", gsDto);
-		return "ingservForm";
+		return "inGServForm";
 	}
 	
 	@RequestMapping(value="tourDiary")
-	public String tourDiary(String gno, Model model) {
-		System.out.println("gno = " + gno);
-		//gsDto.setgno(Integer.parseInt(gno));
-		
+	public String tourDiary(HttpSession session, Model model) {
+		String gno = (String)session.getAttribute("gno");
 		List<GServDto> gsDtolist = gss.selGServRes(Integer.parseInt(gno));
 		
 		for(int i= 0; i < gsDtolist.size(); i++) {
@@ -101,14 +102,11 @@ public class GuideController {
 			int sum = Integer.parseInt(pt[0])+lt;
 			String endTime = Integer.toString(sum);
 			endTime = endTime + ":00";
-			System.out.println("endTime = "+endTime);
 			gsDtolist.get(i).setEndTime(endTime);
 		}
 		
 		
 		model.addAttribute("gsList", gsDtolist);
-		System.out.println("tourList = > " + gsDtolist.get(0).getTourDate());
-		System.out.println("title = > " + gsDtolist.get(0).getGservTitle());
 		return "tourDiary";
 	}
 	@RequestMapping(value="confirmResForm")
@@ -119,7 +117,6 @@ public class GuideController {
 	}
 	@RequestMapping(value="confirmResPro")
 	public String confirmResPro(ReservDto resDto , Model model) {
-		System.out.println("resDto.getTourDate() = "+resDto.getTourDate());
 		int result = ress.updateConfirm(resDto);
 		model.addAttribute("result", result);
 		
@@ -127,20 +124,20 @@ public class GuideController {
 	}
 	
 	@RequestMapping(value="pay_guide")
-	public String pay_guide(GServDto gsDto, Model model) {
-		System.out.println("gsDto.getStartSearch() = "+gsDto.getStartSearch());
-		System.out.println("gsDto.getendSearch() = " + gsDto.getEndSearch());
-		System.out.println("gsDto.getgservNo() = " + gsDto.getGservNo());
+	public String pay_guide(HttpSession session, GServDto gsDto, Model model) {
+		String gno = (String)session.getAttribute("gno");
+		System.out.println("pay_guide gno => " + gno);
+		gsDto.setGno(Integer.parseInt(gno));
 		List<GServDto> list = gss.selPayGuide(gsDto);
 		model.addAttribute("payGlist", list);
-		model.addAttribute("gno", gsDto.getGno());
-		
+		//model.addAttribute("gno", gsDto.getGno());
+		System.out.println("실패인거 같은데???");
 		return "pay_guide";
 	}
 	
 	@RequestMapping(value="pay_guideForm")
-	public String pay_guideForm(String gno, Model model) {
-		
+	public String pay_guideForm(HttpSession session, Model model) {
+		String gno = (String)session.getAttribute("gno");
 		GuideDto gDto = gs.selOneGuide(Integer.parseInt(gno));
 		
 		model.addAttribute("gDto", gDto);
@@ -149,8 +146,9 @@ public class GuideController {
 	}
 	
 	@RequestMapping(value="pay_guidePro")
-	public String pay_guidePro(GuideDto gDto, String cost, Model model) {
-		
+	public String pay_guidePro(HttpSession session, GuideDto gDto, String cost, Model model) {
+		String gno = (String)session.getAttribute("gno");
+		gDto.setGno(Integer.parseInt(gno));
 		gDto.setTotalCost(gDto.getTotalCost()-Integer.parseInt(cost));
 		gs.upCostGuide(gDto);
 		GServDto gsDto = new GServDto();
@@ -169,7 +167,7 @@ public class GuideController {
 	
 	@RequestMapping(value = "selGuideQAPro")
 	public String selGuideQAPro(HttpServletRequest request, Model model) {
-		// String ID = (String) request.getSession().getAttribute("ID");
+		String ID = (String) request.getSession().getAttribute("ID");
 		String currentPage = request.getParameter("currentPage");
 		String qAreply = request.getParameter("qAreply"); 
 		String gservTitle = request.getParameter("gservTitle");
@@ -191,7 +189,7 @@ public class GuideController {
 		}
 		
 		PagingDto pdto = new PagingDto();
-		String ID = "abcd@naver.com";
+		//String ID = "abcd@naver.com";
 		//작성자가 아닌.. 쓴 사람(누구에서 작성했나)으로 들어가야함!!
 		pdto.setQaReceiver(ID);
 		pdto.setReply_yn(qAreply);
@@ -246,8 +244,8 @@ public class GuideController {
 	
 	@RequestMapping(value="profile_guide")
 	public String profile_guide(HttpServletRequest request, Model model) {
-		// String ID = (String) request.getSession().getAttribute("ID");
-		String ID = "abcd@naver.com";
+		String ID = (String) request.getSession().getAttribute("ID");
+		//String ID = "abcd@naver.com";
 		GuideDto gDto = gs.g_info(ID);
 		MemberDto mbDto = mbs.selMember(ID);
 		
@@ -257,8 +255,8 @@ public class GuideController {
 	}
 	@RequestMapping(value="upGuideForm")
 	public String upGuideForm(HttpServletRequest request, Model model) {
-		// String ID = (String) request.getSession().getAttribute("ID");
-		String ID = "abcd@naver.com";
+		String ID = (String) request.getSession().getAttribute("ID");
+		//String ID = "abcd@naver.com";
 		GuideDto gDto = gs.g_info(ID);
 		model.addAttribute("gDto", gDto);
 		return "upGuideForm";

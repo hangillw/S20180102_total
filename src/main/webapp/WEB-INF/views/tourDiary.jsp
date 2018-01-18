@@ -6,13 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="<c:url value='/js/jquery.js'/>"></script>
 	<link href='//fonts.googleapis.com/css?family=Lato:100,400,700' rel='stylesheet' />
-	<link href='https://fullcalendar.io/css/base.css?3.8.0-1.9.1' rel='stylesheet' />
-	<link rel='stylesheet' href='https://fullcalendar.io/js/fullcalendar-3.8.0/fullcalendar.min.css' />
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js'></script>
-	<!-- <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script> -->
-	<script src='https://fullcalendar.io/js/fullcalendar-3.8.0/fullcalendar.min.js'></script>
+	<!-- <link href='https://fullcalendar.io/css/base.css?3.8.0-1.9.1' rel='stylesheet' /> -->
+	<link rel='stylesheet' href='css/fullcalendar.min.css' />
+	<script src='js/moment.min.js'></script>
+	<script src='js/fullcalendar.min.js'></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 	

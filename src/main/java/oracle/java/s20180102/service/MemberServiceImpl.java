@@ -89,4 +89,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	
+	@Override
+	public int selgNo(String memberId) {
+		// TODO Auto-generated method stub
+		return mbDao.selgNo(memberId);
+	}
+	
 }

@@ -124,12 +124,12 @@ public class MainController {
 				//아이디로 DTO 가져오기
 				MemberDto mbDto = mbs.selMember(ID);
 				GuideDto gDto = gs.g_info(ID);
-				
+			
 				//가이드 등록이 되어있을 시 
-				if(gDto.getMemberId()!=null || !gDto.getMemberId().equals("")) {
+				if(gDto != null) {
 					model.addAttribute("guideChk",1);
 					model.addAttribute("gDto", gDto);
-				}
+				} 
 				//관리자 일 때
 				if(mbDto.getAuthority().equals("3")) {
 					model.addAttribute("manageChk",1);

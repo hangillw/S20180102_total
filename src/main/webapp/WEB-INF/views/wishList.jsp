@@ -83,9 +83,9 @@
 </script>
 </head>
 <body>
-<jsp:include page="memberBar.jsp"></jsp:include>
 <section class="body">
 <div class="container">
+<jsp:include page="memberBar.jsp"></jsp:include>
 		총 ${wishList.size() }개<br>
 		<h2>나의 위시리스트</h2>
 	<div style='clear: both'>

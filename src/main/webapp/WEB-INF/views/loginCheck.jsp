@@ -10,19 +10,22 @@
 <body>
 <c:if test="${result==1}">
 	<%
-		String ID =(String)request.getAttribute("id");
+		String ID =(String)request.getAttribute("ID");
 		session.setAttribute("ID", ID);
+		if((String)request.getAttribute("gno")!="0" && (String)request.getAttribute("gno")!=null){
+			String gno = (String)request.getAttribute("gno");
+			session.setAttribute("gno", gno); 
+		}
 	%>
 	<script type="text/javascript">
 			location.href="main.do";
 	</script>
 </c:if>
 <c:if test="${result==0 }">
-<script type="text/javascript">
-	alert("아이디가 없거나, 비밀번호가 틀립니다.")
-	location.href= history.back(-1);
-</script>
-
+	<script type="text/javascript">
+		alert("아이디가 없거나, 비밀번호가 틀립니다.")
+		location.href= history.back(-1);
+	</script>
 </c:if>
 
 </body>

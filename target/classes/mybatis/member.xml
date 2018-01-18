@@ -61,4 +61,9 @@
 	 	 insert into member values (#{memberId},#{nickName},#{pw},#{tel},#{addr},#{mname},sysdate,0,'1',#{mimg})
 	</insert>
 	
+	<select id="selgNo" parameterType="java.lang.String" resultType="int">
+		select g.gNo from member m, guide g where m.memberId=g.memberId and g.memberid = #{memberId} 
+	</select>
+	
+	
 </mapper>

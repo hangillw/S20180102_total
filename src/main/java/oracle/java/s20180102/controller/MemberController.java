@@ -74,8 +74,8 @@ public class MemberController {
 	@RequestMapping(value = "inWishList", produces = "application/text;charset=UTF-8")
 	@ResponseBody
 	public String inWishList(int gservNo, HttpSession session, Model model) {
-		//String ID = (String) session.getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID = (String) session.getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		WishDto wsDto = new WishDto();
 		wsDto.setMemberId(ID);
 		wsDto.setGservNo(gservNo);
@@ -89,8 +89,8 @@ public class MemberController {
 	
 	@RequestMapping(value="delMemberForm")
 	public String delMemberForm(HttpSession session, Model model) {
-		//String ID = (String) session.getAttribute("ID");
-		String ID = "abcd@naver.com";
+		String ID = (String) session.getAttribute("ID");
+		//String ID = "abcd@naver.com";
 		MemberDto mbDto =  mbs.selMember(ID);
 		model.addAttribute("mbDto", mbDto);
 		
@@ -100,8 +100,8 @@ public class MemberController {
 	
 	@RequestMapping(value="delMemberPro")
 	public String delMemberPro(HttpSession session, Model model) {
-		//String ID = (String) session.getAttribute("ID");
-		String ID = "www@naver.com";
+		String ID = (String) session.getAttribute("ID");
+		//String ID = "www@naver.com";
 		mbs.delMember(ID);
 		return "main";
 	}
@@ -111,10 +111,10 @@ public class MemberController {
 	
 	@RequestMapping(value="wishList")
 	public String wishList(String currentPage, HttpSession session, Model model) {
-		//String ID = (String) session.getAttribute("ID");
+		String ID = (String) session.getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		
 		PagingDto pdto = new PagingDto();
-		String ID =  "abcd@naver.com";
 		int total = ws.totalWish(ID);
 		Paging pg = new Paging(total, currentPage, 8);
 		
@@ -136,8 +136,8 @@ public class MemberController {
 	
 	@RequestMapping(value="delWishList")
 	public String delWishList(int gservNo, HttpSession session, Model model) {
-		//String ID = (String) session.getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID = (String) session.getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		WishDto wdto = new WishDto();
 		wdto.setMemberId(ID);
 		wdto.setGservNo(gservNo);
@@ -151,8 +151,8 @@ public class MemberController {
 /*   좋아요 등록 	*/	
 	@RequestMapping(value="inLikeItPro")
 	public String writeLikeItPro(SearchDto sDto, HttpSession session, Model model) {
-		//String ID = (String) session.getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID = (String) session.getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		LikeItDto liDto = new LikeItDto();
 		liDto.setMemberId(ID);
 		liDto.setGservNo(sDto.getgServNo());
@@ -174,8 +174,8 @@ public class MemberController {
 /*   좋아요 삭제 	*/	
 	@RequestMapping(value="delLikeItPro")
 	public String delLikeItPro(SearchDto sDto, HttpSession session, Model model) {
-		//String ID = (String) session.getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID = (String) session.getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		LikeItDto liDto = new LikeItDto();
 		
 		if(ID!=null) {			
@@ -199,10 +199,10 @@ public class MemberController {
 /*   (회원) 예약 현황 	*/	
 	@RequestMapping(value="reservation_member")
 	public String reservation_member(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		String currentPage = request.getParameter("currentPage");
 		PagingDto pdto = new PagingDto();
-		String ID =  "abcd@naver.com";
 		int total = ress.totalResv(ID);
 		Paging pg = new Paging(total, currentPage);
 		pdto.setMemberId(ID);
@@ -233,8 +233,8 @@ public class MemberController {
 /*   상세 상품 페이지  - 예약 등록	*/	
 	@RequestMapping(value="inResvPro")
 	public String insertResvPro(ReservDto resvDto, HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		int p1 = (int)(Math.random()*100000);
 		int p2 = (int)(Math.random()*100000);
 		String payCode = "P_" + p1 + "_" + p2;
@@ -251,8 +251,8 @@ public class MemberController {
 /*   (회원) 예약 현황  - 예약 수정 	*/	
 	@RequestMapping(value="upResvForm")
 	public String upResvForm(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		String payCode = request.getParameter("payCode");
 		ReservDto resvDto = ress.oneResv(payCode);
 		TourCardDto tcDto = gss.oneTourCard(resvDto);
@@ -279,9 +279,9 @@ public class MemberController {
 /*   (회원) 예약 현황 - 결제하기 	*/	
 	@RequestMapping(value="inPayForm")
 	public String payPage(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		String payCode = request.getParameter("payCode");
-		String ID =  "abcd@naver.com";
 		ReservDto rsvDto = ress.oneResv(payCode);
 		TourCardDto tcDto = gss.oneTourCard(rsvDto);
 		MemberDto mbDto = mbs.selMember(ID);
@@ -334,9 +334,9 @@ public class MemberController {
 /*   (회원) 결제 내역 	*/	
 	@RequestMapping(value="pay_member")
 	public String pay_member(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		String currentPage = request.getParameter("currentPage");
-		String ID =  "abcd@naver.com";
 		PagingDto pdto = new PagingDto();
 		int total = ps.total(ID);
 		Paging pg = new Paging(total, currentPage);
@@ -353,9 +353,9 @@ public class MemberController {
 /*   (회원) 후기 관리 	*/
 	@RequestMapping(value="review_member")
 	public String review_member(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		String currentPage = request.getParameter("currentPage");
-		String ID =  "abcd@naver.com";
 		PagingDto pdto = new PagingDto();
 		int total = ress.total_Complete(ID);
 		Paging pg = new Paging(total, currentPage);
@@ -375,8 +375,8 @@ public class MemberController {
 /*   (회원) 후기 관리 - 후기 등록 	*/
 	@RequestMapping(value="inReviewForm")
 	public String writeReview(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		String payCode = request.getParameter("payCode");
 		MemberDto mbDto = mbs.selMember(ID);
 		ReservDto rsvDto = ress.oneResv(payCode);
@@ -390,8 +390,8 @@ public class MemberController {
 /*   (회원) 후기 관리 - 후기 수정 	*/
 	@RequestMapping(value="upReviewForm")
 	public String updateReviewForm(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID = "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID = "abcd@naver.com";
 		int gservNo = Integer.parseInt(request.getParameter("gservNo"));
 
 		ReviewDto revDto = new ReviewDto();
@@ -406,8 +406,8 @@ public class MemberController {
 /*   (회원) 후기 관리 - 후기 삭제 	*/
 	@RequestMapping(value="delReviewPro")
 	public String delReviewPro(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID = "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID = "abcd@naver.com";
 		int gservNo = Integer.parseInt(request.getParameter("gservNo"));
 		ReviewDto revDto = new ReviewDto();
 		revDto.setGservNo(gservNo);
@@ -429,8 +429,8 @@ public class MemberController {
 /*   (회원) 후기 관리 - 후기 보기 	*/
 	@RequestMapping(value="getReviewPro")
 	public String getReviewPro(int gservNo, HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID =  "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		ReviewDto revDto = new ReviewDto();
 		revDto.setGservNo(gservNo);
 		revDto.setMemberId(ID);
@@ -486,9 +486,9 @@ public class MemberController {
 /*   (회원) 후기 관리 - 답글 등록 	*/
 	@RequestMapping(value="inCmtPro")
 	public String writeCommentPro(ReviewDto revDto, HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID =  "abcd@naver.com";
 		int rn = Integer.parseInt(request.getParameter("rn"));
-		String ID =  "abcd@naver.com";
 		revDto.setMemberId(ID);
 		revs.inComment(revDto);
 		model.addAttribute("gservNo", revDto.getGservNo());
@@ -501,8 +501,8 @@ public class MemberController {
 /*   (회원) 후기 관리 - 답글 삭제 	*/
 	@RequestMapping(value="delCmtPro")
 	public String delCmtPro(HttpServletRequest request, Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID = "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID = "abcd@naver.com";
 		int gservNo = Integer.parseInt(request.getParameter("gservNo"));
 		int rStep = Integer.parseInt(request.getParameter("rStep"));
 		int rn = Integer.parseInt(request.getParameter("rn"));
@@ -529,8 +529,8 @@ public class MemberController {
 	//회원 정보 페이지
 	@RequestMapping(value="user_info")
 	public String user_infoForm(HttpServletRequest request,Model model) {
-		//String ID =  (String) request.getSession().getAttribute("ID");
-		String ID = "abcd@naver.com";
+		String ID =  (String) request.getSession().getAttribute("ID");
+		//String ID = "abcd@naver.com";
 		MemberDto mDto=mbs.selMember(ID);
 		model.addAttribute("memberDto",mDto);
 			
@@ -583,12 +583,24 @@ public class MemberController {
 	}
 	
 	/*  (회원) 로그인 do  */
-	@RequestMapping(value="logIn" )
+	@RequestMapping(value="logIn")
 	public String logIn(MemberDto mbDto, Model model) {
-		MemberDto mbDto2 =mbs.selMember(mbDto.getMemberId());
+		MemberDto mbDto2 = mbs.selMember(mbDto.getMemberId());
 		if(mbDto.getPw().equals(mbDto2.getPw())) {
+			
+			// 태욱 수정
+			
+			int gno = mbs.selgNo(mbDto.getMemberId());
+			
+			if( gno > 0) {
+				System.out.println("gno가져 왔다");
+				model.addAttribute("gno", Integer.toString(gno));
+			}
+			
+			// 태욱 수정
+			
 			model.addAttribute("result","1");
-			model.addAttribute("id", mbDto.getMemberId());
+			model.addAttribute("ID", mbDto.getMemberId());
 			return "loginCheck";
 			
 		}	else {
@@ -609,39 +621,27 @@ public class MemberController {
 	/*    회원가입 form 페이지  	*/
 	@RequestMapping(value="joinForm")
 	public String joinForm(Model model) {
-		System.out.println("joinForm 111   Start");
-		
 		return"joinForm";
 	}
 	
 	/*    회원가입[Member]   */
 	@RequestMapping(value="joinMember")
 	public String joinMember(MemberDto mbDto, Model model) {
-		System.out.println("joinMember 222  Start");
-		System.out.println("joinMember mbDto.getAddr->"+mbDto.getAddr());
-		System.out.println("joinMember mbDto.getMemberId->"+mbDto.getMemberId());
-		System.out.println("joinMember mbDto.getPw->"+mbDto.getPw());
-		
 		// Member 저장 Service ,  count ->저장여부 
 		int count =mbs.inMember(mbDto);
 
 		// 성공하면  logInForm
 		// 실패하면  joinForm
 		if (count > 0) {
-			System.out.println(" 회원가입[Member] 성공");
-			return "logInForm";
+			return "main";
 		}
 		else {
 			model.addAttribute("msg","입력 실패 확인해 보세요");
-			System.out.println(" 회원가입[Member] 입력 실패");
-			return "joinForm";
+			return "history.back(-1)";
 		}
 	
 		
 	}
-	
-	
-	
 	
 	/* (회원) 비밀번호 찾기 Form */
 	@RequestMapping(value="pswFindForm")
@@ -692,7 +692,7 @@ public class MemberController {
 
 	@RequestMapping(value="selQAPro")
 	public String selQAPro(HttpServletRequest request, Model model) {
-		// String ID = (String) request.getSession().getAttribute("ID");
+		String ID = (String) request.getSession().getAttribute("ID");
 		System.out.println("여기까지 오긴하니?");
 		String currentPage = request.getParameter("currentPage");
 		System.out.println("currentPage="+currentPage);
@@ -708,7 +708,7 @@ public class MemberController {
 		
 		System.out.println("QAreply="+qAreply);
 		PagingDto pdto = new PagingDto();
-		String ID = "abcd@naver.com";
+		//String ID = "abcd@naver.com";
 		pdto.setMemberId(ID);
 		System.out.println("pdto.getMemberId() = "+pdto.getMemberId());
 

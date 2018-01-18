@@ -55,7 +55,7 @@
 	<c:set var="gs" value="${gsDto}"></c:set>
 		<h3>상품명</h3>
 		<input type="text" name="gservTitle" value="" required="required">
-		<input type="hidden" name="gno" value="${gs.gNo }">
+		<input type="hidden" name="gno" value="${gs.gno }">
 		<input type="hidden" name="gservNo" value="${gs.gservNo }">
 		<h3>가이드지역</h3>
 		<select name="gservAreaG" id="areaSelect" onchange="selchange()" required="required">

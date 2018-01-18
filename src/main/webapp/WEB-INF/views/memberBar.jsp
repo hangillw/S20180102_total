@@ -10,7 +10,7 @@
 	.bar {
 		width: 250px;
 		height:100%;
-		background-color: #232323;
+		background-color: rgb(61,183,204);
 		box-sizing: border-box;
 		display: inline-block;
 		position: absolute;
@@ -25,7 +25,7 @@
 	
 	.tap1 {
 		text-decoration: none;
-		color:white;
+		color: white;
 	}
 
 </style>

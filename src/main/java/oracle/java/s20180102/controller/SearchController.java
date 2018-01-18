@@ -247,7 +247,7 @@ public class SearchController {
 			GuideDto gDto = gs.g_info(ID);
 			
 			//가이드 등록이 되어있을 시 
-			if(gDto.getMemberId()!=null || !gDto.getMemberId().equals("")) {
+			if(gDto!=null) {
 				model.addAttribute("guideChk",1);
 				model.addAttribute("gDto", gDto);
 			}
