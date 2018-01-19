@@ -10,7 +10,6 @@ import oracle.java.s20180102.model.CodeSetDto;
 import oracle.java.s20180102.model.ContentsDto;
 import oracle.java.s20180102.model.GServDto;
 import oracle.java.s20180102.model.ReservDto;
-import oracle.java.s20180102.model.SearchDto;
 import oracle.java.s20180102.model.TourCardDto;
 import oracle.java.s20180102.vo.GServContentsVo;
 
@@ -80,5 +79,11 @@ public class GServServiceImpl implements GServService{
 		// TODO Auto-generated method stub
 		return gsDao.selPayGuide(gsDto);
 	}
+	@Override
+	public int totalnLock(int gno) {
+		// TODO Auto-generated method stub
+		return gsDao.totalnLock(gno);
+	}
+	
 	
 }

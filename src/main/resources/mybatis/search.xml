@@ -25,6 +25,7 @@
 		<result property="areaCode" column="areaCode" />
 		<result property="gservArea" column="gservArea" />
 		<result property="rvCnt" column="rvCnt" />
+		<result property="gno" column="gno" />
 	</resultMap>
 	
 <select id="oneItemName" parameterType="java.lang.String" resultType="java.lang.String">
@@ -119,6 +120,29 @@
   <insert id="inKeyWord" parameterType="java.lang.String">
   		insert into searchRecord values ('${value}', sysdate)
   </insert>
+  
+  <select id="selGPage" parameterType="GuideDto" resultMap="tcResult">
+  		Select * From
+			(Select rownum rna, a.* from     
+				  (   Select rownum rn, tc.*, Decode(lt.gServNo,tc.gServNo,'1','0') heart,
+				             NVL(rv.cnt,0)rvCnt 
+				        From v_tourcard tc,
+				             (Select count(*) cnt , gServno 
+				                From review 
+				               Where rStep = 0 
+				               Group by gServNo) rv,
+				             (Select * 
+				                From likeit 
+				               <if test="memberId !=null">Where memberId = #{memberId}</if>) lt 
+				       Where tc.gServNo=lt.gServNo(+)
+				         and tc.gServNo=rv.gServNo(+)
+                 and tc.gno = #{gno}
+      
+				    Order by gServTitle
+			    ) a 
+			 ) aa
+      where rn BETWEEN #{start} and #{end}
+  </select>
   
   
 </mapper>

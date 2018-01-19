@@ -15,24 +15,23 @@
 		padding-left:250px;
 	}
 </style>
-<!-- <script type="text/javascript" src="../../js/jquery.js"></script> -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <!-- <script type="text/javascript" src="../../js/jquery.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script type="text/javascript">
-	
-		$("select").change(function(){
-			var lock = $(this).val();
-			alert("ajax발동전");
-			$.ajax({
-	            type : 'POST',
-	            url  : '<%=context%>/rest/upLock.do',
-				data : { lock : lock },
-				success : function(data) {
-					console.log(data);
-				}
-			});
-			alert("ajax발동후");
+$(function(){
+	$("select").change(function(){
+		var lock = $(this).val();
+		$.ajax({
+            type : 'POST',
+            url  : '<%=context%>/rest/upLock.do',
+			data : { lock : lock },
+			success : function(data) {
+				console.log(data);
+			}
 		});
+	});
+});
 </script>
 </head>
 <body>
@@ -64,9 +63,11 @@
 				<td>${gserv.gservEDate}</td>
 				<td>${gserv.gservFixDate }</td>
 				<td>
-					<select name="gservLock" id="gservLock">
-						<option value="${gserv.gservNo }Y">Y</option>
-						<option value="${gserv.gservNo }N">N</option>
+					${gserv.gservLock}
+					<select name="gservLock" id="gServLock${gserv.gservNo }">
+						<option id="null" value="0">변경</option>
+						<option id="Y" value="${gserv.gservNo }Y">Y</option>
+						<option id="N" value="${gserv.gservNo }N">N</option>
 					</select>
 				</td>
 			</tr>

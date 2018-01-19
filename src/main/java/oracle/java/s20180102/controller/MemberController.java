@@ -1,8 +1,8 @@
 package oracle.java.s20180102.controller;
 
+import oracle.java.s20180102.model.GuideDto;
 import oracle.java.s20180102.model.LikeItDto;
 import oracle.java.s20180102.model.MemberDto;
-import oracle.java.s20180102.model.NoticeDto;
 import oracle.java.s20180102.model.PagingDto;
 import oracle.java.s20180102.model.PayDto;
 import oracle.java.s20180102.model.QADto;
@@ -12,9 +12,9 @@ import oracle.java.s20180102.model.SearchDto;
 import oracle.java.s20180102.model.TourCardDto;
 import oracle.java.s20180102.model.WishDto;
 import oracle.java.s20180102.service.GServService;
+import oracle.java.s20180102.service.GuideService;
 import oracle.java.s20180102.service.LikeItService;
 import oracle.java.s20180102.service.MemberService;
-import oracle.java.s20180102.service.NoticeService;
 import oracle.java.s20180102.service.Paging;
 import oracle.java.s20180102.service.PayService;
 import oracle.java.s20180102.service.QAService;
@@ -66,7 +66,10 @@ public class MemberController {
 	private GServService gss;	
 	@Autowired
 	private QAService qs;
-
+	@Autowired
+	private SearchService ss;
+	@Autowired
+	private GuideService gs;
 	
 	
 	
@@ -588,7 +591,7 @@ public class MemberController {
 		MemberDto mbDto2 = mbs.selMember(mbDto.getMemberId());
 		if(mbDto.getPw().equals(mbDto2.getPw())) {
 			
-			// 태욱 수정
+			// 태욱 수정-------------------------------------------------------------------------
 			
 			int gno = mbs.selgNo(mbDto.getMemberId());
 			
@@ -597,7 +600,7 @@ public class MemberController {
 				model.addAttribute("gno", Integer.toString(gno));
 			}
 			
-			// 태욱 수정
+			// 태욱 수정-------------------------------------------------------------------------
 			
 			model.addAttribute("result","1");
 			model.addAttribute("ID", mbDto.getMemberId());
@@ -737,6 +740,42 @@ public class MemberController {
 		System.out.println("여기까지 왔니?");
 		return "selQAForm3";
 	}
-	
+// 태욱 --------------------------------------------------------------------------------------------------------------------------------------------------
+	@RequestMapping("author_detail")
+	public String author_detail(int gno, HttpServletRequest request, Model model) {
+		String ID =  (String) request.getSession().getAttribute("ID");
+		PagingDto pDto = new PagingDto();
+		int total = gss.total(gno);
+		pDto.setGno(gno);
+		pDto.setMemberId(ID);
+		System.out.println("pDto.getGno() ==> "+pDto.getGno());
+		System.out.println("pDto.getMemberId() ==> "+pDto.getMemberId());
+		// Paging null 처리
+		 String nowPage = request.getParameter("currentPage");
+		 int currentPage;
+				if(nowPage !=null) {
+					if(nowPage.equals("")) {
+						currentPage = 1;
+					} else {
+					  currentPage = Integer.parseInt(nowPage); 
+					}
+				} else {
+					currentPage = 1;
+				} 
+		
+		Paging pg = new Paging(total, nowPage);
+		pDto.setStart(pg.getStart());
+		pDto.setEnd(pg.getEnd());
+		System.out.println("pg.getStart()==>" + pg.getStart());
+		System.out.println("pg.getEnd()==>" + pg.getEnd());
+		List<TourCardDto> tcDto = ss.selGPage(pDto);
+		GuideDto gDto = gs.selOneGuide(gno);
+		
+		model.addAttribute("gDto", gDto);
+		model.addAttribute("tcDto", tcDto);
+	 	model.addAttribute("currentPage", currentPage);
+		return "author_detail";
+	}
+// 태욱 --------------------------------------------------------------------------------------------------------------------------------------------------
 
 }

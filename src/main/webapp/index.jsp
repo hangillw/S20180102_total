@@ -8,7 +8,7 @@
 <body> 
 <%
  //------ 지영 -----------------
- response.sendRedirect("main.do");
+ //response.sendRedirect("main.do");
 //response.sendRedirect("logout.do");
  //response.sendRedirect("wishList.do");                             // 위시리스트
  //response.sendRedirect("reservation_member.do");                   // 예약관리
@@ -21,7 +21,7 @@
  
   //response.sendRedirect("service_guide.do?gNo=10001");           // 가이드 상품관리
   //response.sendRedirect("selGServForm.do?gServNo=10001001");     // 상품 수정 form
-  //response.sendRedirect("service_manager.do");  
+  response.sendRedirect("service_manager.do");  
   //response.sendRedirect("tourDiary.do"); 
   //response.sendRedirect("pay_guide.do?gNo=10001");
  

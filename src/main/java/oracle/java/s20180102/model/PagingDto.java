@@ -14,6 +14,21 @@ public class PagingDto {
 	
 	private String qaReceiver;
 	
+	/*태욱*/
+	private int gno;
+	
+	
+	
+	
+	public int getGno() {
+		return gno;
+	}
+
+
+	public void setGno(int gno) {
+		this.gno = gno;
+	}
+
 
 	public String getWrite_period() {
 		return write_period;

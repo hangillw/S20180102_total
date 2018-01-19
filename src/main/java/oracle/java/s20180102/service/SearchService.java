@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import oracle.java.s20180102.model.PagingDto;
 import oracle.java.s20180102.model.SearchDto;
 import oracle.java.s20180102.model.TourCardDto;
 
@@ -20,6 +21,8 @@ public interface SearchService {
 	int total_keyword(SearchDto sDto);               // 키워드 검색의 총 상품 개수
 	void inKeyWord(String keyword);                  // 검색어 누적
 
+	List<TourCardDto> selGPage(PagingDto pDto);    // 보는사람(맴버ID)가 보는 가이드(gno)페이지 정보(TourCard)
+	
 	
 	//int inSearch(String KeyWord);  // 검색어 누적
 	//List<SearchDao> hotKeyWord();  // 인기검색어 리스트

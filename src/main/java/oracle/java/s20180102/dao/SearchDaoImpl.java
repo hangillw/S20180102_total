@@ -9,6 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;  // 
 import org.springframework.stereotype.Repository;
 
+import oracle.java.s20180102.model.GuideDto;
+import oracle.java.s20180102.model.PagingDto;
 import oracle.java.s20180102.model.SearchDto;
 import oracle.java.s20180102.model.TourCardDto;
 
@@ -48,6 +50,10 @@ public class SearchDaoImpl implements SearchDao{
 		session.insert("inKeyWord", keyword);
 	}
 
-
+	@Override
+	public List<TourCardDto> selGPage(PagingDto pDto) {
+		// TODO Auto-generated method stub
+		return session.selectList("selGPage", pDto);
+	}
 	
 }

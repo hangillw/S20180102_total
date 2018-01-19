@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;  //
 import org.springframework.stereotype.Service;
 
 import oracle.java.s20180102.dao.SearchDao;
+import oracle.java.s20180102.model.GuideDto;
+import oracle.java.s20180102.model.PagingDto;
 import oracle.java.s20180102.model.SearchDto;
 import oracle.java.s20180102.model.TourCardDto;
 
@@ -49,7 +51,11 @@ public class SearchServiceImpl implements SearchService{
 	}
 
 
-	
+	@Override
+	public List<TourCardDto> selGPage(PagingDto pDto) {
+		// TODO Auto-generated method stub
+		return sDao.selGPage(pDto);
+	}
 
 	
 }

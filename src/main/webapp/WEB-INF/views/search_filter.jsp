@@ -80,7 +80,7 @@
 								<img src="${list.imgSrc }" alt="상품 이미지">
 							</a>
 							<span class="author">
-								<a href="author_detail.do">
+								<a href="author_detail.do?gno=${list.gno }">
 									<img alt="프로필사진" src="${list.gimg }">
 								</a>
 							<br>

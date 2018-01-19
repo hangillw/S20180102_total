@@ -23,9 +23,10 @@ public interface GServService {
 	int upGServ(GServContentsVo gsctVO);                      // 상품수정
 	int inGServ(GServContentsVo gsctVO); 					  // 상품 등록
 	int selGServNo(int gNo);             					  // 상품 등록페이지 진입을 위한 새로운 gServNo 번호 검색, 리턴
-	int upLock(GServDto lock);
-	List<GServDto> selPayGuide(GServDto gsDto);
-
+	int upLock(GServDto lock);								  // 상품 노출여부 수정
+	List<GServDto> selPayGuide(GServDto gsDto);				  // 정산관리 상품정보
+	
+	int totalnLock(int gno);								  // 가이드별 상품 중 노출상품
 	//int delGServ(String[] GservNo);                         // 상품 일괄 삭제
 	
 	

@@ -20,14 +20,18 @@
 	.tour {
 		padding-left: 300px;
 	}
+	#guideTitle{
+		padding-top: 100px;
+	}
 </style>
 </head>
 <body>
-
-<h2>${gDto.nickName } 가이드의 페이지</h2>
+<p>
+<div id="guideTitle">
+<h2>${tcDto[0].nickName } 가이드의 페이지</h2>
 <img alt="가이드사진" src="${gDto.gimg }">
 <pre>${gDto.ginfo}</pre>
-
+</div>
 
 
 <c:forEach var="list" items="${tcDto }">
@@ -37,7 +41,7 @@
 								<img src="${list.imgSrc }" alt="상품 이미지">
 							</a>
 							<span class="author">
-								<a href="author_detail.do">
+								<a href="author_detail.do?gno=${list.gno }">
 									<img alt="프로필사진" src="${list.gimg }">
 								</a>
 							<br>
@@ -65,6 +69,17 @@
 								남은 인원 : ${list.remainSize }
 							</p>
 			</li>
-		</c:forEach>	
+		</c:forEach>
+		<div style="clear: both"></div>
+	<c:if test="${pg.startPage > pg.pageBlock }">
+		<a href="search_Keyword.do?currentPage=${pg.startPage-pg.pageBlock}&keyword=${keyword}&order=${order}">[이전]</a>
+	</c:if>
+	<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }">
+		<a href="search_Keyword.do?currentPage=${i}&keyword=${keyword}&order=${order}"">[${i}]</a>
+	</c:forEach>
+	<c:if test="${pg.endPage < pg.totalPage }">
+		<a href="search_Keyword.do?currentPage=${pg.startPage+pg.pageBlock}&keyword=${keyword}&order=${order}"">[다음]</a>
+	</c:if>
+</div>	
 </body>
 </html>

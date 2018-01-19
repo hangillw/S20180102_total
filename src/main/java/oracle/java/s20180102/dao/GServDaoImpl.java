@@ -38,13 +38,11 @@ public class GServDaoImpl implements GServDao{
 
 	@Override
 	public List<ContentsDto> selCont(int gservNo) {
-		// TODO Auto-generated method stub
 		return session.selectList("listContents", gservNo);
 	}
 	
 	@Override
 	public List<CodeSetDto> selCodeSet(String itemCode) {
-		// TODO Auto-generated method stub
 		//int code = Integer.parseInt(itemCode);
 		System.out.println("gservDaoImpl->selCodeSet : "+itemCode);
 		return session.selectList("listCodeSet", itemCode);
@@ -56,9 +54,12 @@ public class GServDaoImpl implements GServDao{
 	}
 	@Override
 	public List<GServDto> selPayGuide(GServDto gsDto) {
-		// TODO Auto-generated method stub
 		System.out.println("selPayGuide >> gno = "+ gsDto.getGno());
 		return session.selectList("gservPayList", gsDto);
+	}
+	@Override
+	public int totalnLock(int gno) {
+		return session.selectOne("totalnLock", gno);
 	}
 	
 	

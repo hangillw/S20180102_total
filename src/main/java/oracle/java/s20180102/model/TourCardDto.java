@@ -13,6 +13,8 @@ public class TourCardDto {
 	private String areaCode;
 	private String gservArea;
 	
+	private int gno;
+	
 	private int likeIt;
 	private int remainSize;
 	private int gservNo;
@@ -21,6 +23,12 @@ public class TourCardDto {
 		
 	
 	
+	public int getGno() {
+		return gno;
+	}
+	public void setGno(int gno) {
+		this.gno = gno;
+	}
 	public int getRvCnt() {
 		return rvCnt;
 	}
