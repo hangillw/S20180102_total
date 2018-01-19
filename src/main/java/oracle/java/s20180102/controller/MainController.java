@@ -7,12 +7,16 @@ import oracle.java.s20180102.model.GuideDto;
 import oracle.java.s20180102.model.MemberDto;
 import oracle.java.s20180102.model.NoticeDto;
 import oracle.java.s20180102.model.PagingDto;
+import oracle.java.s20180102.model.ReviewDto;
+import oracle.java.s20180102.model.TourCardDto;
 import oracle.java.s20180102.model.WishDto;
 import oracle.java.s20180102.service.GServService;
 import oracle.java.s20180102.service.GuideService;
 import oracle.java.s20180102.service.MemberService;
 import oracle.java.s20180102.service.NoticeService;
 import oracle.java.s20180102.service.Paging;
+import oracle.java.s20180102.service.ReviewService;
+import oracle.java.s20180102.service.SearchService;
 import oracle.java.s20180102.service.WishService;
 
 import java.util.List;
@@ -39,7 +43,10 @@ public class MainController {
 	private GuideService gs;
 	@Autowired
 	private NoticeService ns;
-	
+	@Autowired
+	private SearchService ss;
+	@Autowired
+	private ReviewService revs;
 	
 	/*    메인 페이지  	*/
 	@RequestMapping(value="main")
@@ -139,6 +146,57 @@ public class MainController {
 				model.addAttribute("loginChk", 1); // 로그인 상태
 	
 			return "forward:"+ page + ".do";
-		}		
+		}
+
+		// 태욱 --------------------------------------------------------------------------------------------------------------------------------------------------
+			@RequestMapping("author_detail")
+			public String author_detail(int gno, HttpServletRequest request, Model model) {
+				String ID =  (String) request.getSession().getAttribute("ID");
+				PagingDto pDto = new PagingDto();
+				int total = gss.total(gno);
+				pDto.setGno(gno);
+				pDto.setMemberId(ID);
+				System.out.println("pDto.getGno() ==> "+pDto.getGno());
+				System.out.println("pDto.getMemberId() ==> "+pDto.getMemberId());
+				// Paging null 처리
+				 String nowPage = request.getParameter("currentPage");
+				 int currentPage;
+						if(nowPage !=null) {
+							if(nowPage.equals("")) {
+								currentPage = 1;
+							} else {
+							  currentPage = Integer.parseInt(nowPage); 
+							}
+						} else {
+							currentPage = 1;
+						} 
+				
+				Paging pg = new Paging(total, nowPage, 5);
+				pDto.setStart(pg.getStart());
+				pDto.setEnd(pg.getEnd());
+				List<TourCardDto> tcDto = ss.selGPage(pDto);
+				GuideDto gDto = gs.selOneGuide(gno);
+				
+				
+				// 해당 가이드의 후기 리스트 가져오기
+				pDto = new PagingDto();
+				pDto.setGno(gno);
+				total = revs.totalRevsGno(gno);
+				pg = new Paging(total, nowPage, 5);
+				pDto.setStart(pg.getStart());
+				pDto.setEnd(pg.getEnd());
+				
+				List<ReviewDto> revDtoList = revs.selgnoReviewList(pDto);  
+				
+				
+				model.addAttribute("revDto", revDtoList);
+				model.addAttribute("gDto", gDto);
+				model.addAttribute("tcDto", tcDto);
+			 	model.addAttribute("currentPage", currentPage);
+				return "author_detail";
+			}
+			
+		// 태욱 --------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 }

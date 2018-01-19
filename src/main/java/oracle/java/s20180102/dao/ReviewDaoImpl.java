@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import oracle.java.s20180102.model.PagingDto;
 import oracle.java.s20180102.model.ReviewDto;
 
 @Repository
@@ -61,6 +62,14 @@ public class ReviewDaoImpl implements ReviewDao {
 		return session.selectList("selReviewList", reviewDto);
 	}
 
+	@Override
+	public List<ReviewDto> selgnoReviewList(PagingDto pDto) {
+		return session.selectList("selgnoReviewList", pDto);
+	}
 	
-
-}
+	@Override
+	public int totalRevsGno(int gno) {
+		// TODO Auto-generated method stub
+		return session.selectOne("totalRevsGno", gno);
+	}
+}	

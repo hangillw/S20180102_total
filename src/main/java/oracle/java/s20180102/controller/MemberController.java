@@ -66,10 +66,7 @@ public class MemberController {
 	private GServService gss;	
 	@Autowired
 	private QAService qs;
-	@Autowired
-	private SearchService ss;
-	@Autowired
-	private GuideService gs;
+
 	
 	
 	
@@ -740,42 +737,4 @@ public class MemberController {
 		System.out.println("여기까지 왔니?");
 		return "selQAForm3";
 	}
-// 태욱 --------------------------------------------------------------------------------------------------------------------------------------------------
-	@RequestMapping("author_detail")
-	public String author_detail(int gno, HttpServletRequest request, Model model) {
-		String ID =  (String) request.getSession().getAttribute("ID");
-		PagingDto pDto = new PagingDto();
-		int total = gss.total(gno);
-		pDto.setGno(gno);
-		pDto.setMemberId(ID);
-		System.out.println("pDto.getGno() ==> "+pDto.getGno());
-		System.out.println("pDto.getMemberId() ==> "+pDto.getMemberId());
-		// Paging null 처리
-		 String nowPage = request.getParameter("currentPage");
-		 int currentPage;
-				if(nowPage !=null) {
-					if(nowPage.equals("")) {
-						currentPage = 1;
-					} else {
-					  currentPage = Integer.parseInt(nowPage); 
-					}
-				} else {
-					currentPage = 1;
-				} 
-		
-		Paging pg = new Paging(total, nowPage);
-		pDto.setStart(pg.getStart());
-		pDto.setEnd(pg.getEnd());
-		System.out.println("pg.getStart()==>" + pg.getStart());
-		System.out.println("pg.getEnd()==>" + pg.getEnd());
-		List<TourCardDto> tcDto = ss.selGPage(pDto);
-		GuideDto gDto = gs.selOneGuide(gno);
-		
-		model.addAttribute("gDto", gDto);
-		model.addAttribute("tcDto", tcDto);
-	 	model.addAttribute("currentPage", currentPage);
-		return "author_detail";
-	}
-// 태욱 --------------------------------------------------------------------------------------------------------------------------------------------------
-
 }

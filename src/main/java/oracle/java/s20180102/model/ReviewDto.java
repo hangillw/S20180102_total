@@ -20,7 +20,7 @@ public class ReviewDto {
 	
 	
 	//--- 지영 추가
-	private String gServTitle;
+	private String gservTitle;
 	private MultipartFile[] images;
 	
 	//-------------
@@ -98,17 +98,17 @@ public class ReviewDto {
 	public void setRcredate(Date rcredate) {
 		this.rcredate = rcredate;
 	}
-	public String getgServTitle() {
-		return gServTitle;
-	}
-	public void setgServTitle(String gServTitle) {
-		this.gServTitle = gServTitle;
-	}
 	public MultipartFile[] getImages() {
 		return images;
 	}
 	public void setImages(MultipartFile[] images) {
 		this.images = images;
+	}
+	public String getGservTitle() {
+		return gservTitle;
+	}
+	public void setGservTitle(String gservTitle) {
+		this.gservTitle = gservTitle;
 	}
 
 	

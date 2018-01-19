@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <%
 	String context = request.getContextPath();
 %>
@@ -70,16 +71,56 @@
 							</p>
 			</li>
 		</c:forEach>
-		<div style="clear: both"></div>
-	<c:if test="${pg.startPage > pg.pageBlock }">
-		<a href="search_Keyword.do?currentPage=${pg.startPage-pg.pageBlock}&keyword=${keyword}&order=${order}">[이전]</a>
-	</c:if>
-	<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }">
-		<a href="search_Keyword.do?currentPage=${i}&keyword=${keyword}&order=${order}"">[${i}]</a>
-	</c:forEach>
-	<c:if test="${pg.endPage < pg.totalPage }">
-		<a href="search_Keyword.do?currentPage=${pg.startPage+pg.pageBlock}&keyword=${keyword}&order=${order}"">[다음]</a>
-	</c:if>
-</div>	
+		<div style="clear: both">
+		</div>
+		<c:if test="${fn:length(tcDto) >= 5}">
+			<a href="search_Keyword.do?keyword=${tcDto[0].nickName}">[더보기]</a>
+		</c:if>
+		
+		<c:forEach var="list" items="${revDto }">
+			<hr>
+			<li>
+				<form action="inCmtPro.do">
+				<table>
+					
+					<tr>
+						<input type="hidden" name="gservNo" value="${list.gservNo }">
+						<input type="hidden" name="rgroup" value="${list.rgroup }"> 
+						<input type="hidden" name="nickName" value="${list.nickName }"> 
+						<input type="hidden" name="rn" value="${list.rn }"> 
+						<td rowspan=3><img class ="rImg" src="${pageContext.request.contextPath}/images/${revDto.rimg }" onerror="this.src='${pageContext.request.contextPath}/items/review_alt.png'"></td>
+						<td colspan=4>${list.rtitle }</td>
+						<td>DATE ${list.rcredate }</td>
+					</tr>
+					<tr>
+						<td  rowspan=2, colspan=4>${list.rcontent }</td>
+						<td>STAR <c:forEach var="i" begin="1" end="${list.rstar }">★</c:forEach> </td>
+					</tr>
+					<tr>
+						<td>BY ${list.nickName }</td>
+					</tr>
+					<c:forEach var="revList" items="${revList }">
+						<tr>
+							<td rowspan=2>┗</td>
+							<td rowspan=2, colspan=3>${revList.rcontent }</td>
+							<td>DATE ${revList.rcredate }</td>
+							<c:if test="${revDto.memberId==revList.memberId }">
+								<td rowspan=2><input type="button" value="X" onclick="location.href='delCmtPro.do?gservNo=${revDto.gservNo}&rstep=${revList.rstep}&rn=${list.rn }'"></td>
+							</c:if>
+						</tr>
+						<tr>
+							<td>BY ${revList.nickName }</td>
+						</tr>
+					</c:forEach>
+						<tr>
+							<td>┗</td>
+							<td colspan=4><textarea name="rcontent" cols="80"></textarea></td>
+							<td><input type="submit" value="comment"></td>
+						</tr>
+				</table>					
+			</form>
+				
+			</li>
+		</c:forEach>
 </body>
 </html>

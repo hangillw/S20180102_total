@@ -2,6 +2,7 @@ package oracle.java.s20180102.dao;
 
 import java.util.List;
 
+import oracle.java.s20180102.model.PagingDto;
 import oracle.java.s20180102.model.ReviewDto;
 
 public interface ReviewDao {
@@ -17,4 +18,6 @@ public interface ReviewDao {
 	
 	int total_Complete(ReviewDto reviewDto);
 	List<ReviewDto> selReviewList(ReviewDto reviewDto);     // 후기리스트 
+	List<ReviewDto> selgnoReviewList(PagingDto pDto);               // 해당 가이드 후기 리스트
+	int totalRevsGno(int gno);                               // 가이드 번호로 해당 가이드의 상품에 달린 후기 수
 }

@@ -42,11 +42,11 @@
 	});   
 /* 별점 스크립트  */
 	$(document).ready(function(){
-	 	$('input[name=rStar]').val(5);
+	 	$('input[name=rstar]').val(5);
 		$( ".star_rating a" ).click(function() {
 		     $(this).parent().children("a").removeClass("on");
 		     $(this).addClass("on").prevAll("a").addClass("on");		     
-			 $('input[name=rStar]').val($(".on").size());
+			 $('input[name=rstar]').val($(".on").size());
 		     return false;                                                
 		});
 	});

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;  //
 import org.springframework.stereotype.Service;
 
 import oracle.java.s20180102.dao.ReviewDao;
-
+import oracle.java.s20180102.model.PagingDto;
 import oracle.java.s20180102.model.ReviewDto;
 
 
@@ -60,7 +60,16 @@ public class ReviewServiceImpl implements ReviewService{
 		return revDao.selReviewList(reviewDto);
 	}
 
+	@Override
+	public List<ReviewDto> selgnoReviewList(PagingDto pDto) {
+		return revDao.selgnoReviewList(pDto);
+	}
 
+	@Override
+	public int totalRevsGno(int gno) {
+		// TODO Auto-generated method stub
+		return revDao.totalRevsGno(gno);
+	}
 
 	
 }

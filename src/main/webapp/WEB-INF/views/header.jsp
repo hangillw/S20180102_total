@@ -158,7 +158,7 @@ form {
 	   $('.categoryList').hide();
 	};
 	
-	function patterChk() {
+	/* function patterChk() {
 		var pattern = /([^가-힣\x20])/i; 
 		//var fld = "가나다라마사"; 
 		var fld = $('input[name=keyword]').val();
@@ -166,7 +166,7 @@ form {
 		    alert("한글이 아닙니다. (자음, 모음만 있는 한글은 처리하지 않습니다.)"); 
 		    return false;
 		} 
-	}
+	} */
 </script>
 
 </head>
@@ -298,7 +298,8 @@ form {
 				</div>
 				<!-- 검색영역 -->	
 					<div class="searchArea">
-						<form action="search_Keyword.do" onsubmit="return patterChk()">
+						<!-- <form action="search_Keyword.do" onsubmit="return patterChk()"> -->
+						<form action="search_Keyword.do">
 							<input type="text" class="search" name="keyword" placeholder="검색하세용"></input> 
 							<input type="image" id="srch_img" name="submit" src="${pageContext.request.contextPath}/items/search.png" value="" />
 						</form>	

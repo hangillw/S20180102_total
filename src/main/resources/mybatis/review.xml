@@ -30,7 +30,7 @@
   	 	   select rev.*, gs.gServTitle
    			 from review rev, gService gs
    		    where memberId='${memberId}'
-   			  and rev.gServNo=${gServNo}
+   			  and rev.gServNo=${gservNo}
    			  and rev.gServNo = gs.gServNo
    			  and rev.rstep=0
    </select>
@@ -78,7 +78,25 @@
 		select * from review where rStep=0 order by rCredate 
 	</select>
 	
+	
 	<select id="totalRevs" parameterType="ReviewDto" resultType="int">
 		select count(*) from review
+	</select>
+	
+   	<select id="selgnoReviewList" parameterType="PagingDto" resultMap="RevResult">
+		select * 
+		from 
+		  (select rownum rn, a.* 
+		   from (select * 
+		         from review 
+		         where rStep=0 and gServno in (select gservNo 
+		                                       from gService 
+		                                       where gno = #{gno} and gservLock = 'y') 
+		                                       order by rCredate) a )
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="totalRevsGno" parameterType="int" resultType="int">
+		select count(*) from review where rStep=0 and gServno in (select gservNo from gService where gno = #{gno} and gservLock = 'y') order by rCredate
 	</select>
 </mapper>
