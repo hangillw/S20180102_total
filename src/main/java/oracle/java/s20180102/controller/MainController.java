@@ -171,7 +171,7 @@ public class MainController {
 							currentPage = 1;
 						} 
 				
-				Paging pg = new Paging(total, nowPage, 5);
+				Paging pg = new Paging(total, "1", 5);
 				pDto.setStart(pg.getStart());
 				pDto.setEnd(pg.getEnd());
 				List<TourCardDto> tcDto = ss.selGPage(pDto);
@@ -182,13 +182,18 @@ public class MainController {
 				pDto = new PagingDto();
 				pDto.setGno(gno);
 				total = revs.totalRevsGno(gno);
-				pg = new Paging(total, nowPage, 5);
+				System.out.println("total = > " + total);
+				pg = new Paging(total, nowPage, 3);
 				pDto.setStart(pg.getStart());
 				pDto.setEnd(pg.getEnd());
 				
-				List<ReviewDto> revDtoList = revs.selgnoReviewList(pDto);  
-				
-				
+				List<ReviewDto> revDtoList = revs.selgnoReviewList(pDto);
+				if(revDtoList.size() >= 1) {
+				System.out.println("revDtoList.get(0).getRtitle() = "+revDtoList.get(0).getRtitle());
+				}else {
+					System.out.println("revDtoList.size() = > " + revDtoList.size());
+				}
+				model.addAttribute("pg", pg);
 				model.addAttribute("revDto", revDtoList);
 				model.addAttribute("gDto", gDto);
 				model.addAttribute("tcDto", tcDto);

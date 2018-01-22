@@ -24,6 +24,11 @@
 	#guideTitle{
 		padding-top: 100px;
 	}
+	.rImg {
+		width: 70px;
+		height: 70px;
+		border-radius: 0.5em;
+	}
 </style>
 </head>
 <body>
@@ -87,8 +92,8 @@
 						<input type="hidden" name="gservNo" value="${list.gservNo }">
 						<input type="hidden" name="rgroup" value="${list.rgroup }"> 
 						<input type="hidden" name="nickName" value="${list.nickName }"> 
-						<input type="hidden" name="rn" value="${list.rn }"> 
-						<td rowspan=3><img class ="rImg" src="${pageContext.request.contextPath}/images/${revDto.rimg }" onerror="this.src='${pageContext.request.contextPath}/items/review_alt.png'"></td>
+						<%-- <input type="hidden" name="rn" value="${list.rn }">  --%>
+						<td rowspan=3><img class ="rImg" src="${pageContext.request.contextPath}/images/${list.rimg }" onerror="this.src='${pageContext.request.contextPath}/items/review_alt.png'"></td>
 						<td colspan=4>${list.rtitle }</td>
 						<td>DATE ${list.rcredate }</td>
 					</tr>
@@ -99,7 +104,7 @@
 					<tr>
 						<td>BY ${list.nickName }</td>
 					</tr>
-					<c:forEach var="revList" items="${revList }">
+					<%-- <c:forEach var="revList" items="${revList }">
 						<tr>
 							<td rowspan=2>┗</td>
 							<td rowspan=2, colspan=3>${revList.rcontent }</td>
@@ -116,11 +121,21 @@
 							<td>┗</td>
 							<td colspan=4><textarea name="rcontent" cols="80"></textarea></td>
 							<td><input type="submit" value="comment"></td>
-						</tr>
+						</tr> --%>
 				</table>					
 			</form>
 				
 			</li>
 		</c:forEach>
+		
+	<c:if test="${pg.startPage > pg.pageBlock }">
+		<a href="author_detail.do?currentPage=${pg.startPage-pg.pageBlock}&gno=${gDto.gno}">[이전]</a>
+	</c:if>
+	<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }">
+		<a href="author_detail.do?currentPage=${i}&gno=${gDto.gno}">[${i}]</a>
+	</c:forEach>
+	<c:if test="${pg.endPage < pg.totalPage }">
+		<a href="author_detail.do?currentPage=${pg.startPage+pg.pageBlock}&gno=${gDto.gno}">[다음]</a>
+	</c:if>
 </body>
 </html>
