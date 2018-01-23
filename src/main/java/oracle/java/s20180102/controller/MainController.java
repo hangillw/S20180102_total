@@ -19,6 +19,8 @@ import oracle.java.s20180102.service.ReviewService;
 import oracle.java.s20180102.service.SearchService;
 import oracle.java.s20180102.service.WishService;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -188,11 +190,27 @@ public class MainController {
 				pDto.setEnd(pg.getEnd());
 				
 				List<ReviewDto> revDtoList = revs.selgnoReviewList(pDto);
-				if(revDtoList.size() >= 1) {
+				/*if(revDtoList.size() >= 1) {
 				System.out.println("revDtoList.get(0).getRtitle() = "+revDtoList.get(0).getRtitle());
 				}else {
 					System.out.println("revDtoList.size() = > " + revDtoList.size());
+				}*/
+				
+				
+				List <String[]> rImgList = new ArrayList<>();
+				for (int i = 0; i < revDtoList.size(); i++) {
+					rImgList.add(revDtoList.get(i).getRimg().split(","));
 				}
+				// 후기 이미지 중 첫 번째 이미지 선택
+				for (int i = 0; i < revDtoList.size(); i++) {
+					if(revDtoList.get(i).getRimg() != null) {
+						String rImg = revDtoList.get(i).getRimg();
+						String[] rImgs =rImg.split(",");
+						revDtoList.get(i).setRimg(rImgs[0]);			
+					}
+				}
+				System.out.println(rImgList.get(0)[0]);
+				model.addAttribute("rImgList", rImgList);
 				model.addAttribute("pg", pg);
 				model.addAttribute("revDto", revDtoList);
 				model.addAttribute("gDto", gDto);
