@@ -15,6 +15,7 @@
 	    <result property="gaccount" column="gaccount"/>
 	    <result property="ggrade" column="ggrade"/>
 	    <result property="totalCost" column="totalCost"/>
+	    <result property="gbank" column="gbank"/>
   </resultMap>
   
 

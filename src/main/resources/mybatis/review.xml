@@ -87,9 +87,9 @@
 		select * 
 		from 
 		  (select rownum rn, a.* 
-		   from (select * 
-		         from review 
-		         where rStep=0 and gServno in (select gservNo 
+		   from (select r.*, g.gservTitle 
+		         from review r, GSERVICE g
+		         where r.rStep=0 and r.gservno= g.gservno and r.gServno in (select gservNo 
 		                                       from gService 
 		                                       where gno = #{gno} and gservLock = 'y') 
 		                                       order by rCredate) a )

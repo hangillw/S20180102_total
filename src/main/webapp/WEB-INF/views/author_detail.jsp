@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
@@ -31,7 +31,7 @@
 		width: 70px;
 		height: 70px;
 		border-radius: 0.5em;
-	
+	}
 </style>
 
 </head>
@@ -42,7 +42,6 @@
 <img alt="가이드사진" src="${gDto.gimg }">
 <pre>${gDto.ginfo}</pre>
 </div>
-${rImgList[0][0]}
 <div class="modal fade" id="rimg" role="dialog" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -134,6 +133,9 @@ ${rImgList[0][0]}
 			<li>
 				<form action="inCmtPro.do">
 				<table>
+					<tr>
+						<h3><a href="tour_detail.do?gservNo=${list.gservNo }">${list.gservTitle }</a></h3>
+					</tr>
 					
 					<tr>
 						<input type="hidden" name="gservNo" value="${list.gservNo }">
@@ -208,15 +210,10 @@ ${rImgList[0][0]}
 						$('.carousel-indicators').append("<li data-target='#myCarousel' data-slide-to='${j}-1'></li>");
 						$('.carousel-inner').append("<div class='item'><img src='${pageContext.request.contextPath}/images/${rImgList[i][j-1]}'/></div>");
 						</c:if>
-						console.log("${rImgList[i][j]}");
 					</c:forEach>
 				}
 			</c:forEach>
 		});
-		/* $('.close').click(function(){
-			$('.carousel-inner').empty();
-			$('.carousel-indicators').empty();
-		}); */
 	});
 </script>
 </html>

@@ -17,12 +17,23 @@ public class GuideDto {
 	private int ggrade;
 	private int totalCost;
 	
+	// 태욱 추가
+	private String gbank;
+	
 	// 지영 추가
 	private MultipartFile guideImg;
 	//--------------------------------------------
 	
+	
+	
 	public MultipartFile getGuideImg() {
 		return guideImg;
+	}
+	public String getGbank() {
+		return gbank;
+	}
+	public void setGbank(String gbank) {
+		this.gbank = gbank;
 	}
 	public void setGuideImg(MultipartFile guideImg) {
 		this.guideImg = guideImg;

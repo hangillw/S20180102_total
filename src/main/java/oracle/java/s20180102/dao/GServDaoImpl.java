@@ -87,22 +87,22 @@ public class GServDaoImpl implements GServDao{
 
 	@Override
 	public int upGServ(GServContentsVo gsctVO) {
-		int gservNo = gsctVO.getgServNo();
+		int gservNo = gsctVO.getGservNo();
 		//List<ContentsDto> cntList = session.selectList("listContents", gservNo); 
 		session.delete("deleteContents", gservNo);
-		for(int i = 0; i < gsctVO.getgServOrder().length; i++) {
-			if(gsctVO.getgServIntro()[i]==null && gsctVO.getgServIntro()[i].length()>1) {
+		for(int i = 0; i < gsctVO.getGservOrder().length; i++) {
+			if(gsctVO.getGservIntro()[i]==null && gsctVO.getGservIntro()[i].length()>1) {
 				continue;
 			}
 			ContentsDto ctDto = new ContentsDto();
-			ctDto.setGservNo(gsctVO.getgServNo());
+			ctDto.setGservNo(gsctVO.getGservNo());
 			/*if(gsctVO.getgservOrder().length>cntList.size()) {
 			ctDto.setgservIntro(gsctVO.getgservIntro()[i] == null ? gsctVO.getgservIntro()[i] : cntList.get(i).getgservIntro());
 			ctDto.setgservOrder(gsctVO.getgservOrder()[i] == null ? gsctVO.getgservOrder()[i] : cntList.get(i).getgservOrder());
 			ctDto.setImgSrc(gsctVO.getImgSrc()[i] == null ? gsctVO.getImgSrc()[i] : cntList.get(i).getImgSrc());
 			}*/
-			ctDto.setGservIntro(gsctVO.getgServIntro()[i]);
-			ctDto.setGservOrder(gsctVO.getgServOrder()[i]);
+			ctDto.setGservIntro(gsctVO.getGservIntro()[i]);
+			ctDto.setGservOrder(gsctVO.getGservOrder()[i]);
 			ctDto.setImgSrc(gsctVO.getImgSrc()[i]);
 			System.out.println(gsctVO.getImgSrc()[i]);
 			/*session.update("updateContents", ctDto);*/
@@ -140,18 +140,18 @@ public class GServDaoImpl implements GServDao{
 	public int inGServ(GServContentsVo gsctVO) {
 		int result = 0;
 		result = session.update("inGserv", gsctVO);
-		for(int i = 0; i < gsctVO.getgServOrder().length; i++) {
-			if(gsctVO.getgServIntro()[i]==null && gsctVO.getgServIntro()[i].length()>1) {
+		for(int i = 0; i < gsctVO.getGservOrder().length; i++) {
+			if(gsctVO.getGservIntro()[i]==null && gsctVO.getGservIntro()[i].length()>1) {
 				continue;
 			}
 			ContentsDto ctDto = new ContentsDto();
-			System.out.println("gsctVO.getgservNo() = "+gsctVO.getgServNo());
-			System.out.println("gsctVO.getgservIntro()["+i+"] = "+gsctVO.getgServIntro()[i]);
-			System.out.println("gsctVO.getgservOrder()["+i+"] = "+gsctVO.getgServOrder()[i]);
+			System.out.println("gsctVO.getgservNo() = "+gsctVO.getGservNo());
+			System.out.println("gsctVO.getgservIntro()["+i+"] = "+gsctVO.getGservIntro()[i]);
+			System.out.println("gsctVO.getgservOrder()["+i+"] = "+gsctVO.getGservOrder()[i]);
 			System.out.println("gsctVO.getImgSrc()["+i+"] = "+gsctVO.getImgSrc()[i]);
-			ctDto.setGservNo(gsctVO.getgServNo());
-			ctDto.setGservIntro(gsctVO.getgServIntro()[i]);
-			ctDto.setGservOrder(gsctVO.getgServOrder()[i]);
+			ctDto.setGservNo(gsctVO.getGservNo());
+			ctDto.setGservIntro(gsctVO.getGservIntro()[i]);
+			ctDto.setGservOrder(gsctVO.getGservOrder()[i]);
 			ctDto.setImgSrc(gsctVO.getImgSrc()[i]);
 			System.out.println(gsctVO.getImgSrc()[i]);
 			/*session.update("updateContents", ctDto);*/

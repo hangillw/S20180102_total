@@ -47,7 +47,11 @@ public class SearchDaoImpl implements SearchDao{
 
 	@Override
 	public void inKeyWord(String keyword) {
+		// 태욱 수정-------------------------------
+		if(keyword!=null && keyword!="") {
 		session.insert("inKeyWord", keyword);
+		}
+		// 태욱 수정-------------------------------
 	}
 
 	@Override

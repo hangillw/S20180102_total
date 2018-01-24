@@ -22,9 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 import oracle.java.s20180102.model.GuideDto;
 import oracle.java.s20180102.model.MemberDto;
 import oracle.java.s20180102.model.ReviewDto;
+import oracle.java.s20180102.service.GServService;
 import oracle.java.s20180102.service.GuideService;
 import oracle.java.s20180102.service.MemberService;
 import oracle.java.s20180102.service.ReviewService;
+import oracle.java.s20180102.vo.GServContentsVo;
 
 @Controller
 public class UploadController {
@@ -40,11 +42,15 @@ public class UploadController {
   @Autowired
   	private MemberService mbs;
   
+  @Autowired
+  	private GServService gss;
+  
   @RequestMapping(value = "inRImg", method = RequestMethod.GET)
   public void inRImg() {
 		System.out.println("uploadForm GET Start");
- }
-
+  }
+  
+  
   
 /* 후기 등록  */
   
@@ -194,5 +200,88 @@ public class UploadController {
     return savedName;
 
   }
+//태욱----------------------------------------------------------------------------------------------------
+  @RequestMapping(value="selGServPro", method=RequestMethod.POST)
+	public String selGServPro(GServContentsVo gsctVO, Model model) {
+		System.out.println("gsDto = " + gsctVO);
+		String[] savedName = new String[(gsctVO.getGservIntro()).length];
+		String gServDay = "";
+		for(int i = 0; i < gsctVO.getDays().length; i++) {
+			if((i+1)==gsctVO.getDays().length) {
+				gServDay +=  gsctVO.getDays()[i];
+			}
+			gServDay +=  gsctVO.getDays()[i]+",";
+		}
+		
+		gsctVO.setGservDay(gServDay);
+		gsctVO.setGservGps(gsctVO.getPickUpLoc());
+		MultipartFile[] images = gsctVO.getImgfile();
+		System.out.println("images.length = " + images.length);
+		if(images!=null) {
+		for(int i = 0; i<images.length+1; i++) {
+			try {
+				if(i==0) {
+					savedName[i] = null;
+				} else {
+					if(images[i].getBytes() != null) {
+					savedName[i] = uploadFile(images[i-1].getOriginalFilename(), images[i-1].getBytes());
+					System.out.println("savedName["+i+"] = " + savedName[i]);
+					}
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+			gsctVO.setImgSrc(savedName);   // rImg DB 저장 
+			System.out.println("savedName.length = " + savedName.length);
+			}
+		}
+		gss.upGServ(gsctVO);
+		
+		model.addAttribute("gNo", gsctVO.getGno());
+		return "redirect:service_guide.do";
+  }
   
+  @RequestMapping(value="inGServPro", method=RequestMethod.POST)
+	public String inGServPro(GServContentsVo gsctVO, Model model) {
+		System.out.println("gsDto = " + gsctVO);
+		String[] savedName = new String[(gsctVO.getGservIntro()).length];
+		String gServDay = "";
+		for(int i = 0; i < gsctVO.getDays().length; i++) {
+			if((i+1)==gsctVO.getDays().length) {
+				gServDay +=  gsctVO.getDays()[i];
+			}else {
+				gServDay +=  gsctVO.getDays()[i]+",";
+			}
+		}
+		
+		gsctVO.setGservDay(gServDay);
+		gsctVO.setGservGps(gsctVO.getPickUpLoc());
+		MultipartFile[] images = gsctVO.getImgfile();
+		System.out.println("images.length = " + images.length);
+		if(images!=null) {
+		for(int i = 0; i<images.length+1; i++) {
+			try {
+				if(i==0) {
+					savedName[i] = null;
+				} else {
+					if(images[i].getBytes() != null) {
+					savedName[i] = uploadFile(images[i-1].getOriginalFilename(), images[i-1].getBytes());
+					System.out.println("savedName["+i+"] = " + savedName[i]);
+					}
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			} 
+			gsctVO.setImgSrc(savedName);   // rImg DB 저장 
+			System.out.println("savedName.length = " + savedName.length);
+			}
+		}
+		gss.inGServ(gsctVO);
+		
+		model.addAttribute("gNo", gsctVO.getGno());
+		return "redirect:service_guide.do";
+}
+//태욱----------------------------------------------------------------------------------------------------
 }

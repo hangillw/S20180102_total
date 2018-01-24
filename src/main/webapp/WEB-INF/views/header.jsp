@@ -137,6 +137,15 @@ form {
 }
 /* 로그인 팝업 css */
 
+
+/* /* 태욱 인기 검색어 css*/
+.searchKey {border:2px solid #d81f25; padding:0 5px; height:20px; overflow:hidden; background:#fff; width:100px; font-family:Gulim; font-size:12px;}
+.searchKey ul,
+.searchKey li {margin:0; padding:0; list-style:none;}
+.searchKey li a {display:block; height:20px; line-height:20px; color:#555; text-decoration:none;}
+.searchKey li span {padding:2px 5px; background:#d81f25; color:#fff; font-weight:bold; margin-right:3px;}
+ */
+
 </style>
 
 <script type="text/javascript">
@@ -157,6 +166,13 @@ form {
 	function closeCategory(){
 	   $('.categoryList').hide();
 	};
+	
+	$(function(){
+		
+		
+		
+		
+	});
 	
 	/* function patterChk() {
 		var pattern = /([^가-힣\x20])/i; 
@@ -317,7 +333,10 @@ form {
 				<li class="category" onclick="location.href='aboutUs.do'">ABOUT US</li>
 			</ul>
 			<ul style="margin-top: 10px">
-				<li style="float:right;">인기검색어<input type="text" value="1.제주도" disabled></li>
+				<li style="float:right;">인기검색어<div id="searchKey"><ul id="ticker">
+					
+				</ul>
+				</div></li>
 			</ul>
 		</div>
 	</div>

@@ -43,14 +43,11 @@
 	}
 	$(function(){
 		var days = "<c:out value="${gsDto.gservDay}"/>";
-		var dayArray = days.split('');
+		var dayArray = days.split(',');
 		for(i = 0; i <= dayArray.length; i++){
 			var x = dayArray[i];
-			$('#d'+x).attr("checked", true);	
+			$('#'+x).attr("checked", true);	
 		}
-		/* $('<c:out value="#${book.book_kind}"/>').attr("checked", true);
-		$('<c:out value="#${book.bookState}1"/>').attr("checked", true);
-		$('<c:out value="#${book.bookLent_yn}"/>').attr("checked", true); */
 		var gSub = "<c:out value="${gsDto.gservSub}"/>";
 		console.log(gSub);
 		
@@ -98,13 +95,13 @@
 		서비스 종료일
 		<input title="서비스종료일" type="date" name="gservEDate" value="${gs.gservEDate }">
 		<h2>서비스 가능 요일</h2>
-		<input type="checkbox" name="days" value="1" id="d1">일요일
-		<input type="checkbox" name="days" value="2" id="d2">월요일
-		<input type="checkbox" name="days" value="3" id="d3">화요일
-		<input type="checkbox" name="days" value="4" id="d4">수요일
-		<input type="checkbox" name="days" value="5" id="d5">목요일
-		<input type="checkbox" name="days" value="6" id="d6">금요일
-		<input type="checkbox" name="days" value="7" id="d7">토요일
+		<input type="checkbox" name="days" value="D1" id="D1">일요일
+		<input type="checkbox" name="days" value="D2" id="D2">월요일
+		<input type="checkbox" name="days" value="D3" id="D3">화요일
+		<input type="checkbox" name="days" value="D4" id="D4">수요일
+		<input type="checkbox" name="days" value="D5" id="D5">목요일
+		<input type="checkbox" name="days" value="D6" id="D6">금요일
+		<input type="checkbox" name="days" value="D7" id="D7">토요일
 		
 		<h3>가이드 경로</h3>
 		
@@ -112,7 +109,7 @@
         <input type="text" value="" id="keyword" size="15" placeholder="장소검색"> 
         <input type="button" value="검색하기" onclick="searchPlaces()">
 	  	<div id="map" style="width:500px;height:400px;"></div>
-		<input type="text" name="pickUpLoc" id="pickUpLoc" value="${gs.gservGps }">
+		<input type="hidden" name="pickUpLoc" id="pickUpLoc" value="${gs.gservGps }">
 		
 		
 		<h3>상품 소개</h3>

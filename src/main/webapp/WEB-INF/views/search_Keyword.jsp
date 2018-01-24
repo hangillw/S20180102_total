@@ -109,16 +109,16 @@
 							</p>
 			</li>
 		</c:forEach>
-
+	
 	<div style="clear: both"></div>
 	<c:if test="${pg.startPage > pg.pageBlock }">
-		<a href="search_Keyword.do?currentPage=${pg.startPage-pg.pageBlock}&gno=${tcDto[0].gno}">[이전]</a>
+		<a href="search_Keyword.do?currentPage=${pg.startPage-pg.pageBlock}&keyword=${keyword}&order=${order}">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${pg.startPage }" end="${pg.endPage }">
-		<a href="search_Keyword.do?currentPage=${i}&gno=${tcDto[0].gno}">[${i}]</a>
+		<a href="search_Keyword.do?currentPage=${i}&keyword=${keyword}&order=${order}">[${i}]</a>
 	</c:forEach>
 	<c:if test="${pg.endPage < pg.totalPage }">
-		<a href="search_Keyword.do?currentPage=${pg.startPage+pg.pageBlock}&gno=${tcDto[0].gno}">[다음]</a>
+		<a href="search_Keyword.do?currentPage=${pg.startPage+pg.pageBlock}&keyword=${keyword}&order=${order}">[다음]</a>
 	</c:if>
 </div>
 

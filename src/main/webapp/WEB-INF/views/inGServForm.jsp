@@ -86,27 +86,26 @@
 		서비스 종료일
 		<input title="서비스종료일" type="date" name="gservEDate" value="" required="required">
 		<h2>서비스 가능 요일</h2>
-		<input type="checkbox" name="days" value="1" id="D1">일요일
-		<input type="checkbox" name="days" value="2" id="D2">월요일
-		<input type="checkbox" name="days" value="3" id="D3">화요일
-		<input type="checkbox" name="days" value="4" id="D4">수요일
-		<input type="checkbox" name="days" value="5" id="D5">목요일
-		<input type="checkbox" name="days" value="6" id="D6">금요일
-		<input type="checkbox" name="days" value="7" id="D7">토요일
+		<input type="checkbox" name="days" value="D1" id="D1">일요일
+		<input type="checkbox" name="days" value="D2" id="D2">월요일
+		<input type="checkbox" name="days" value="D3" id="D3">화요일
+		<input type="checkbox" name="days" value="D4" id="D4">수요일
+		<input type="checkbox" name="days" value="D5" id="D5">목요일
+		<input type="checkbox" name="days" value="D6" id="D6">금요일
+		<input type="checkbox" name="days" value="D7" id="D7">토요일
 		
 		<h3>픽업 지역</h3>
+		<!-- 지도 -->
+	  	<div id="map" style="width:500px;height:400px;"></div>
+        <input type="text" value="" id="keyword" size="15" placeholder="장소검색"> 
+        <input type="button" value="검색하기" onclick="searchPlaces()">
+		<input type="hidden" name="pickUpLoc" id="pickUpLoc" value="" required="required">
 		
 		
 		<h3>상품 소개</h3>
 		<textarea name="gservIntro" rows="10" cols="120" required="required"></textarea>
 		<input type="hidden" name="gservOrder" value="0">
 		<h2>가이드 내용</h2>
-		<!-- 지도 -->
-	  	<div id="map" style="width:500px;height:400px;"></div>
-        <input type="text" value="" id="keyword" size="15" placeholder="장소검색"> 
-        <input type="button" value="검색하기" onclick="searchPlaces()">
-<!-- 		<input type="text" name="pickUpLoc" id="pickUpLoc" value="" required="required">
- -->		
 		<table id="TblAttach">
 			<tr>
 				<th>#</th>
@@ -161,8 +160,8 @@
 		<textarea rows="" cols="" name="caution" required="required"></textarea>
 		<h3>노출여부</h3>
 		<select name="gservLock">
-			<option value="Y">Y</option>
-			<option value="N">N</option>
+			<option value="y">Y</option>
+			<option value="n">N</option>
 		</select>
 		
 		<input type="submit" onclick="chk()"  id="submit" value="수정"><input type="reset" value="취소">

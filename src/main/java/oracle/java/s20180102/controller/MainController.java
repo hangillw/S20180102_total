@@ -196,7 +196,7 @@ public class MainController {
 					System.out.println("revDtoList.size() = > " + revDtoList.size());
 				}*/
 				
-				
+				// 후기 이미지를 문자열 배열형식의 리스트로 저장
 				List <String[]> rImgList = new ArrayList<>();
 				for (int i = 0; i < revDtoList.size(); i++) {
 					rImgList.add(revDtoList.get(i).getRimg().split(","));
@@ -209,7 +209,6 @@ public class MainController {
 						revDtoList.get(i).setRimg(rImgs[0]);			
 					}
 				}
-				System.out.println(rImgList.get(0)[0]);
 				model.addAttribute("rImgList", rImgList);
 				model.addAttribute("pg", pg);
 				model.addAttribute("revDto", revDtoList);

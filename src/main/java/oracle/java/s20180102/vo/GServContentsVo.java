@@ -6,76 +6,47 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class GServContentsVo {
 	// contents 다중으로 받아오기 위한 변수
-	private String[] gServIntro;
-	private String[] gServOrder;
+	private String[] gservIntro;
+	private String[] gservOrder;
 	private MultipartFile[] imgfile;
 	private String[] imgSrc;
 
-	// GServi
-	private int gServNo;
-	private int gNo;
-	private String gServTitle;
-	private String gServGps;
-	private String gServLeadTime;
-	private String gServSub;
-	private String gServArea;
-	private int gServPrice;
+	// gservi
+	private int gservNo;
+	private int gno;
+	private String gservTitle;
+	private String gservGps;
+	private String gservLeadTime;
+	private String gservSub;
+	private String gservArea;
+	private int gservPrice;
 	private int memSizeMin;
 	private int memSizeMax;
-	private String gServLang;
+	private String gservLang;
 	private String servTag;
-	private String pInclude;
+	private String pinclude;
 	private String notPInclude;
 	private String caution;
-	private String gServSDate;
-	private String gServEDate;
-	private String gServDay;
+	private String gservSDate;
+	private String gservEDate;
+	private String gservDay;
 	private String days[];
-	private Date gServCreDate;
-	private Date gServFixDate;
-	private String gServLock;
+	private Date gservCreDate;
+	private Date gservFixDate;
+	private String gservLock;
 	private String pickUpLoc;
 	private String pickUpTime;
-	
-	// 추가 항목
-	
-	
-	
-	public String[] getImgSrc() {
-		return imgSrc;
+	public String[] getGservIntro() {
+		return gservIntro;
 	}
-	public String[] getDays() {
-		return days;
+	public void setGservIntro(String[] gservIntro) {
+		this.gservIntro = gservIntro;
 	}
-	public void setDays(String[] days) {
-		this.days = days;
+	public String[] getGservOrder() {
+		return gservOrder;
 	}
-	public String getPickUpLoc() {
-		return pickUpLoc;
-	}
-	public void setPickUpLoc(String pickUpLoc) {
-		this.pickUpLoc = pickUpLoc;
-	}
-	public String getPickUpTime() {
-		return pickUpTime;
-	}
-	public void setPickUpTime(String pickUpTime) {
-		this.pickUpTime = pickUpTime;
-	}
-	public void setImgSrc(String[] imgSrc) {
-		this.imgSrc = imgSrc;
-	}
-	public String[] getgServIntro() {
-		return gServIntro;
-	}
-	public void setgServIntro(String[] gServIntro) {
-		this.gServIntro = gServIntro;
-	}
-	public String[] getgServOrder() {
-		return gServOrder;
-	}
-	public void setgServOrder(String[] gServOrder) {
-		this.gServOrder = gServOrder;
+	public void setGservOrder(String[] gservOrder) {
+		this.gservOrder = gservOrder;
 	}
 	public MultipartFile[] getImgfile() {
 		return imgfile;
@@ -83,53 +54,59 @@ public class GServContentsVo {
 	public void setImgfile(MultipartFile[] imgfile) {
 		this.imgfile = imgfile;
 	}
-	public int getgServNo() {
-		return gServNo;
+	public String[] getImgSrc() {
+		return imgSrc;
 	}
-	public void setgServNo(int gServNo) {
-		this.gServNo = gServNo;
+	public void setImgSrc(String[] imgSrc) {
+		this.imgSrc = imgSrc;
 	}
-	public int getgNo() {
-		return gNo;
+	public int getGservNo() {
+		return gservNo;
 	}
-	public void setgNo(int gNo) {
-		this.gNo = gNo;
+	public void setGservNo(int gservNo) {
+		this.gservNo = gservNo;
 	}
-	public String getgServTitle() {
-		return gServTitle;
+	public int getGno() {
+		return gno;
 	}
-	public void setgServTitle(String gServTitle) {
-		this.gServTitle = gServTitle;
+	public void setGno(int gno) {
+		this.gno = gno;
 	}
-	public String getgServGps() {
-		return gServGps;
+	public String getGservTitle() {
+		return gservTitle;
 	}
-	public void setgServGps(String gServGps) {
-		this.gServGps = gServGps;
+	public void setGservTitle(String gservTitle) {
+		this.gservTitle = gservTitle;
 	}
-	public String getgServLeadTime() {
-		return gServLeadTime;
+	public String getGservGps() {
+		return gservGps;
 	}
-	public void setgServLeadTime(String gServLeadTime) {
-		this.gServLeadTime = gServLeadTime;
+	public void setGservGps(String gservGps) {
+		this.gservGps = gservGps;
 	}
-	public String getgServSub() {
-		return gServSub;
+	public String getGservLeadTime() {
+		return gservLeadTime;
 	}
-	public void setgServSub(String gServSub) {
-		this.gServSub = gServSub;
+	public void setGservLeadTime(String gservLeadTime) {
+		this.gservLeadTime = gservLeadTime;
 	}
-	public String getgServArea() {
-		return gServArea;
+	public String getGservSub() {
+		return gservSub;
 	}
-	public void setgServArea(String gServArea) {
-		this.gServArea = gServArea;
+	public void setGservSub(String gservSub) {
+		this.gservSub = gservSub;
 	}
-	public int getgServPrice() {
-		return gServPrice;
+	public String getGservArea() {
+		return gservArea;
 	}
-	public void setgServPrice(int gServPrice) {
-		this.gServPrice = gServPrice;
+	public void setGservArea(String gservArea) {
+		this.gservArea = gservArea;
+	}
+	public int getGservPrice() {
+		return gservPrice;
+	}
+	public void setGservPrice(int gservPrice) {
+		this.gservPrice = gservPrice;
 	}
 	public int getMemSizeMin() {
 		return memSizeMin;
@@ -143,11 +120,11 @@ public class GServContentsVo {
 	public void setMemSizeMax(int memSizeMax) {
 		this.memSizeMax = memSizeMax;
 	}
-	public String getgServLang() {
-		return gServLang;
+	public String getGservLang() {
+		return gservLang;
 	}
-	public void setgServLang(String gServLang) {
-		this.gServLang = gServLang;
+	public void setGservLang(String gservLang) {
+		this.gservLang = gservLang;
 	}
 	public String getServTag() {
 		return servTag;
@@ -155,11 +132,11 @@ public class GServContentsVo {
 	public void setServTag(String servTag) {
 		this.servTag = servTag;
 	}
-	public String getpInclude() {
-		return pInclude;
+	public String getPinclude() {
+		return pinclude;
 	}
-	public void setpInclude(String pInclude) {
-		this.pInclude = pInclude;
+	public void setPinclude(String pinclude) {
+		this.pinclude = pinclude;
 	}
 	public String getNotPInclude() {
 		return notPInclude;
@@ -173,42 +150,65 @@ public class GServContentsVo {
 	public void setCaution(String caution) {
 		this.caution = caution;
 	}
-	public String getgServSDate() {
-		return gServSDate;
+	public String getGservSDate() {
+		return gservSDate;
 	}
-	public void setgServSDate(String gServSDate) {
-		this.gServSDate = gServSDate;
+	public void setGservSDate(String gservSDate) {
+		this.gservSDate = gservSDate;
 	}
-	public String getgServEDate() {
-		return gServEDate;
+	public String getGservEDate() {
+		return gservEDate;
 	}
-	public void setgServEDate(String gServEDate) {
-		this.gServEDate = gServEDate;
+	public void setGservEDate(String gservEDate) {
+		this.gservEDate = gservEDate;
 	}
-	public String getgServDay() {
-		return gServDay;
+	public String getGservDay() {
+		return gservDay;
 	}
-	public void setgServDay(String gServDay) {
-		this.gServDay = gServDay;
+	public void setGservDay(String gservDay) {
+		this.gservDay = gservDay;
 	}
-	public Date getgServCreDate() {
-		return gServCreDate;
+	public String[] getDays() {
+		return days;
 	}
-	public void setgServCreDate(Date gServCreDate) {
-		this.gServCreDate = gServCreDate;
+	public void setDays(String[] days) {
+		this.days = days;
 	}
-	public Date getgServFixDate() {
-		return gServFixDate;
+	public Date getGservCreDate() {
+		return gservCreDate;
 	}
-	public void setgServFixDate(Date gServFixDate) {
-		this.gServFixDate = gServFixDate;
+	public void setGservCreDate(Date gservCreDate) {
+		this.gservCreDate = gservCreDate;
 	}
-	public String getgServLock() {
-		return gServLock;
+	public Date getGservFixDate() {
+		return gservFixDate;
 	}
-	public void setgServLock(String gServLock) {
-		this.gServLock = gServLock;
+	public void setGservFixDate(Date gservFixDate) {
+		this.gservFixDate = gservFixDate;
 	}
-	//
+	public String getGservLock() {
+		return gservLock;
+	}
+	public void setGservLock(String gservLock) {
+		this.gservLock = gservLock;
+	}
+	public String getPickUpLoc() {
+		return pickUpLoc;
+	}
+	public void setPickUpLoc(String pickUpLoc) {
+		this.pickUpLoc = pickUpLoc;
+	}
+	public String getPickUpTime() {
+		return pickUpTime;
+	}
+	public void setPickUpTime(String pickUpTime) {
+		this.pickUpTime = pickUpTime;
+	}
+	
+	// 추가 항목
+	
+	
+	
+	
 	
 }
